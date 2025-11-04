@@ -66,29 +66,29 @@ std::string getReadableText(const std::string& input) {
 
 NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) {
     const unordered_map<string, function<shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
-            //{"NiNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiNode>(r, h); }},
-            //{"NiZBufferProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiZBufferProperty>(r, h); }},
-            //{"NiVertexColorProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiVertexColorProperty>(r, h); }},
-            //{"NiMesh", [](Reader& r, NiHeader& h) { return std::make_shared<NiMesh>(r, h); }},
-            //{"NiTexturingProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiTexturingProperty>(r, h); }},
-            //{"NiStringExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiStringExtraData>(r, h); }},
-            //{"NiMaterialProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiMaterialProperty>(r, h); }},
-            //{"NiDataStream", [](Reader& r, NiHeader& h) { return std::make_shared<NiDataStream>(r, h); }},
-            //{"NiSourceTexture", [](Reader& r, NiHeader& h) { return std::make_shared<NiSourceTexture>(r, h); }},
-            //{"NiAlphaProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiAlphaProperty>(r, h); }},
-            //{"NiSpecularProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiSpecularProperty>(r, h); }},
-            //{"NiStencilProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiStencilProperty>(r, h); }},
-            //{"NiTextureTransformController", [](Reader& r, NiHeader& h) { return std::make_shared<NiTextureTransformController>(r, h); }},
-            //{"NiFloatInterpolator", [](Reader& r, NiHeader& h) { return std::make_shared<NiFloatInterpolator>(r, h); }},
-            //{"NiFloatData", [](Reader& r, NiHeader& h) { return std::make_shared<NiFloatData>(r, h); }},
-            //{"NiMorphWeightsController", [](Reader& r, NiHeader& h) { return std::make_shared<NiMorphWeightsController>(r, h); }},
-            //{"NiBillboardNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiBillboardNode>(r, h); }},
-            //{"NiBooleanExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiBooleanExtraData>(r, h); }},
-            //{"NiIntegerExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiIntegerExtraData>(r, h); }},
-            //{"NiIntegersExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiIntegersExtraData>(r, h); }},
-            //{"NiTriShape", [](Reader& r, NiHeader& h) { return std::make_shared<NiTriShape>(r, h); }},
-            //{"NiTriShapeData", [](Reader& r, NiHeader& h) { return std::make_shared<NiTriShapeData>(r, h); }},
-            //{"NiPixelData", [](Reader& r, NiHeader& h) { return std::make_shared<NiPixelData>(r, h); }},
+            {"NiNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiNode>(r, h); }},
+            {"NiZBufferProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiZBufferProperty>(r, h); }},
+            {"NiVertexColorProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiVertexColorProperty>(r, h); }},
+            {"NiMesh", [](Reader& r, NiHeader& h) { return std::make_shared<NiMesh>(r, h); }},
+            {"NiTexturingProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiTexturingProperty>(r, h); }},
+            {"NiStringExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiStringExtraData>(r, h); }},
+            {"NiMaterialProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiMaterialProperty>(r, h); }},
+            {"NiDataStream", [](Reader& r, NiHeader& h) { return std::make_shared<NiDataStream>(r, h); }},
+            {"NiSourceTexture", [](Reader& r, NiHeader& h) { return std::make_shared<NiSourceTexture>(r, h); }},
+            {"NiAlphaProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiAlphaProperty>(r, h); }},
+            {"NiSpecularProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiSpecularProperty>(r, h); }},
+            {"NiStencilProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiStencilProperty>(r, h); }},
+            {"NiTextureTransformController", [](Reader& r, NiHeader& h) { return std::make_shared<NiTextureTransformController>(r, h); }},
+            {"NiFloatInterpolator", [](Reader& r, NiHeader& h) { return std::make_shared<NiFloatInterpolator>(r, h); }},
+            {"NiFloatData", [](Reader& r, NiHeader& h) { return std::make_shared<NiFloatData>(r, h); }},
+            {"NiMorphWeightsController", [](Reader& r, NiHeader& h) { return std::make_shared<NiMorphWeightsController>(r, h); }},
+            {"NiBillboardNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiBillboardNode>(r, h); }},
+            {"NiBooleanExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiBooleanExtraData>(r, h); }},
+            {"NiIntegerExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiIntegerExtraData>(r, h); }},
+            {"NiIntegersExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiIntegersExtraData>(r, h); }},
+            {"NiTriShape", [](Reader& r, NiHeader& h) { return std::make_shared<NiTriShape>(r, h); }},
+            {"NiTriShapeData", [](Reader& r, NiHeader& h) { return std::make_shared<NiTriShapeData>(r, h); }},
+            {"NiPixelData", [](Reader& r, NiHeader& h) { return std::make_shared<NiPixelData>(r, h); }},
     };
 
     for (uint32_t i = 0; i < header.numBlocks; ++i) {
@@ -160,11 +160,3 @@ NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) 
         }
     }
 }
-
-/*
-NifFile::NifFile(const std::vector<uint8_t>& data) : reader(data), header(reader) {
-
-
-
-}
-*/
