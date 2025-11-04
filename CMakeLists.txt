@@ -9,7 +9,6 @@ endif()
 project ("NiForge")
 
 set(HEADER_FILES
-    "src/NiForge.hpp"
     "src/Reader.hpp"
     "src/Core/NiVersion.hpp"
     "src/Core/NiHeader.hpp"
@@ -81,20 +80,19 @@ set(HEADER_FILES
 )
 
 set(SOURCE_FILES
-    "src/NiForge.cpp"
     "src/Reader.cpp"
     "src/Core/NiFile.cpp"
 )
 
-add_library(NiForge SHARED ${HEADER_FILES} ${SOURCE_FILES})
+add_library(${PROJECT_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET NiForge PROPERTY CXX_STANDARD 20)
+  set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 endif()
 
-target_compile_definitions(NiForge PRIVATE NIFORGE_EXPORTS)
+target_compile_definitions(${PROJECT_NAME} PRIVATE NIFORGE_EXPORTS)
 
-set_target_properties(NiForge PROPERTIES
+set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
