@@ -17,6 +17,7 @@
 #include "Blocks/DataStreamData/DataStreamNormal.hpp"
 #include "Blocks/DataStreamData/DataStreamPosition.hpp"
 #include "Blocks/DataStreamData/DataStreamTexCoord.hpp"
+#include "Blocks/DataStreamData/DataStreamData.hpp"
 #include "Blocks/NiBillboardNode.hpp"
 #include "Blocks/NiDataStream.hpp"
 #include "Blocks/NiFloatInterpolator.hpp"
@@ -38,6 +39,9 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <Types/Color4.hpp>
+#include <Types/TexCoord.hpp>
+#include <Types/Vector3.hpp>
 
 template<typename T>
 void addStreamValue(std::vector<std::unique_ptr<DataStreamData>>& streams, const typename T::value_type& value) {
@@ -113,47 +117,38 @@ NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) 
         }
 
         if (const auto& niMesh = dynamic_pointer_cast<NiMesh>(block)) {
-            if (!niMesh) continue;
-
             for (const auto& dataStreamRef : niMesh->dataStreams) {
+                auto dataStream = dataStreamRef.stream.getReference(*this);
+                if (dataStream == nullptr) continue;
+
                 for (const auto& semantic : dataStreamRef.componentSemantics) {
-                    auto dataStream = dataStreamRef.stream.getReference(*this);
-                    if (dataStream == nullptr) continue;
+                    Reader r(dataStream->data);
 
-                    for (const auto& semantic : dataStreamRef.componentSemantics) {
-                        Reader r(dataStream->data);
-
-                        if (semantic.name == "POSITION") {
-                            while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
-                                Vector3 vec = r.read<Vector3>();
-                                addStreamValue<DataStreamPosition>(dataStream->semanticData, vec);
-                            }
+                    if (semantic.name == "POSITION") {
+                        while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
+                            addStreamValue<DataStreamPosition>(dataStream->semanticData, r.read<Vector3>());
                         }
-                        else if (semantic.name == "NORMAL") {
-                            while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
-                                Vector3 vec = r.read<Vector3>();
-                                addStreamValue<DataStreamNormal>(dataStream->semanticData, vec);
-                            }
-                        }
-                        else if (semantic.name == "TEXCOORD") {
-                            while (r.tell() + sizeof(TexCoord) <= dataStream->numBytes) {
-                                TexCoord tex = r.read<TexCoord>();
-                                addStreamValue<DataStreamTexCoord>(dataStream->semanticData, tex);
-                            }
-                        }
-                        else if (semantic.name == "COLOR") {
-                            while (r.tell() + sizeof(Color4) <= dataStream->numBytes) {
-                                Color4 color = r.read<Color4>();
-                                addStreamValue<DataStreamColor>(dataStream->semanticData, color);
-                            }
-                        }
-                        else if (semantic.name == "INDEX") {
-                            while (r.tell() + sizeof(uint16_t) <= dataStream->numBytes) {
-                                uint16_t index = r.read<uint16_t>();
-                                addStreamValue<DataStreamIndex>(dataStream->semanticData, index);
-                            }
-                        } // TOOD: implement rest
                     }
+                    else if (semantic.name == "NORMAL") {
+                        while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
+                            addStreamValue<DataStreamNormal>(dataStream->semanticData, r.read<Vector3>());
+                        }
+                    }
+                    else if (semantic.name == "TEXCOORD") {
+                        while (r.tell() + sizeof(TexCoord) <= dataStream->numBytes) {
+                            addStreamValue<DataStreamTexCoord>(dataStream->semanticData, r.read<TexCoord>());
+                        }
+                    }
+                    else if (semantic.name == "COLOR") {
+                        while (r.tell() + sizeof(Color4) <= dataStream->numBytes) {
+                            addStreamValue<DataStreamColor>(dataStream->semanticData, r.read<Color4>());
+                        }
+                    }
+                    else if (semantic.name == "INDEX") {
+                        while (r.tell() + sizeof(uint16_t) <= dataStream->numBytes) {
+                            addStreamValue<DataStreamIndex>(dataStream->semanticData, r.read<uint16_t>());
+                        }
+                    } // TOOD: implement rest
                 }
             }
         }
