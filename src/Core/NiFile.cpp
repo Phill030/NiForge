@@ -39,7 +39,6 @@
 #include <unordered_map>
 #include <vector>
 
-
 template<typename T>
 void addStreamValue(std::vector<std::unique_ptr<DataStreamData>>& streams, const typename T::value_type& value) {
     for (auto& stream : streams) {
@@ -64,8 +63,7 @@ std::string getReadableText(const std::string& input) {
     return result;
 }
 
-NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) {
-    const unordered_map<string, function<shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
+static const unordered_map<string, function<shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
             {"NiNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiNode>(r, h); }},
             {"NiZBufferProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiZBufferProperty>(r, h); }},
             {"NiVertexColorProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiVertexColorProperty>(r, h); }},
@@ -89,8 +87,9 @@ NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) 
             {"NiTriShape", [](Reader& r, NiHeader& h) { return std::make_shared<NiTriShape>(r, h); }},
             {"NiTriShapeData", [](Reader& r, NiHeader& h) { return std::make_shared<NiTriShapeData>(r, h); }},
             {"NiPixelData", [](Reader& r, NiHeader& h) { return std::make_shared<NiPixelData>(r, h); }},
-    };
+};
 
+NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) {
     for (uint32_t i = 0; i < header.numBlocks; ++i) {
         string blockType = getReadableText(header.blockTypes[header.blockTypeIndex[i]]);
 
