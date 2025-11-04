@@ -1,10 +1,13 @@
 #pragma once
+#include "Core/NiHeader.hpp"
+#include "DataStreamData/DataStreamData.hpp"
 #include "NiObject.hpp"
-#include <cstdint>
 #include "Reader.hpp"
 #include "Types/Ref.hpp"
+#include <cstdint>
+#include <memory>
 #include <string>
-#include "Core/NiHeader.hpp"
+#include <vector>
 
 enum class CloningBehavior : uint32_t
 {

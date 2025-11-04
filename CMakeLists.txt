@@ -69,6 +69,13 @@ set(HEADER_FILES
     "src/Blocks/Data/NiStringExtraData.hpp"
     "src/Blocks/Data/NiTriShapeData.hpp"
 
+    "src/Blocks/DataStreamData/DataStreamColor.hpp"
+    "src/Blocks/DataStreamData/DataStreamData.hpp"
+    "src/Blocks/DataStreamData/DataStreamIndex.hpp"
+    "src/Blocks/DataStreamData/DataStreamNormal.hpp"
+    "src/Blocks/DataStreamData/DataStreamPosition.hpp"
+    "src/Blocks/DataStreamData/DataStreamTexCoord.hpp"
+
     "src/Blocks/Property/NiAlphaProperty.hpp"
     "src/Blocks/Property/NiMaterialProperty.hpp"
     "src/Blocks/Property/NiProperty.hpp"
