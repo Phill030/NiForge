@@ -3,7 +3,7 @@
 #include "Reader.hpp"
 #include "Types/TexCoord.hpp"
 #include "Types/Vector3.hpp"
-#include "NiObject.hpp"
+#include "Blocks/NiObject.hpp"
 #include <cstdint>
 #include <vector>
 

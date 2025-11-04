@@ -1,6 +1,6 @@
 #pragma once
 #include "Reader.hpp"
-#include "NiObjectNet.hpp"
+#include "Blocks/NiObjectNet.hpp"
 #include "Core/NiHeader.hpp"
 
 // Abstract base class representing all rendering properties.

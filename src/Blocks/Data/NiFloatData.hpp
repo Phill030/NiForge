@@ -3,7 +3,7 @@
 #include "Reader.hpp"
 #include "Types/Key.hpp"
 #include "Types/KeyGroup.hpp"
-#include "NiObject.hpp"
+#include "Blocks/NiObject.hpp"
 #include <cstdint>
 #include <cstdio>
 

@@ -2,8 +2,8 @@
 #include "Core/NiHeader.hpp"
 #include "Reader.hpp"
 #include "Types/MipMap.hpp"
-#include "NiPalette.hpp"
-#include "NiPixelFormat.hpp"
+#include "Blocks/NiPalette.hpp"
+#include "Blocks/NiPixelFormat.hpp"
 #include "Types/Ref.hpp"
 #include <cstdint>
 #include <vector>

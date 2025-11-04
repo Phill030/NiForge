@@ -1,7 +1,7 @@
 #pragma once
 #include "NiInterpController.hpp"
 #include "Types/Ref.hpp"
-#include "NiInterpolator.hpp"
+#include "Blocks/NiInterpolator.hpp"
 
 struct NiSingleInterpController : NiInterpController
 {
