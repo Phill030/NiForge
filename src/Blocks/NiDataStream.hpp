@@ -1,10 +1,10 @@
 #pragma once
 #include "NiObject.hpp"
 #include <cstdint>
-#include "../Reader.hpp"
-#include "../Types/Ref.hpp"
+#include "Reader.hpp"
+#include "Types/Ref.hpp"
 #include <string>
-#include "../Core/NiHeader.hpp"
+#include "Core/NiHeader.hpp"
 
 enum class CloningBehavior : uint32_t
 {

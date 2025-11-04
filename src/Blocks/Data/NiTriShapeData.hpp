@@ -1,9 +1,9 @@
 #pragma once
-#include "../../Core/NiHeader.hpp"
-#include "../../Reader.hpp"
-#include "../../Types/MatchGroup.hpp"
-#include "../../Types/Triangle.hpp"
-#include "../NiTriBasedGeomData.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Types/MatchGroup.hpp"
+#include "Types/Triangle.hpp"
+#include "NiTriBasedGeomData.hpp"
 #include <cstdint>
 #include <vector>
 

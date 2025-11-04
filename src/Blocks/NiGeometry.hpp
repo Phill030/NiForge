@@ -2,8 +2,8 @@
 #include "NiAvObject.hpp"
 #include "NiSkinInstance.hpp"
 #include "Data/NiGeometryData.hpp"
-#include "../Types/Ref.hpp"
-#include "../Types/MaterialData.hpp"
+#include "Types/Ref.hpp"
+#include "Types/MaterialData.hpp"
 
 struct NiGeometry : NiAvObject
 {

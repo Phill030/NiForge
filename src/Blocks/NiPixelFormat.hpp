@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Reader.hpp"
+#include "Reader.hpp"
 #include "NiObject.hpp"
 #include <cstdint>
 #include <vector>

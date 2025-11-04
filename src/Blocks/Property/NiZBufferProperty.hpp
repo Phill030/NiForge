@@ -1,8 +1,8 @@
 #pragma once
 #include "NiProperty.hpp"
 #include <cstdint>
-#include "../../Reader.hpp"
-#include "../../Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Core/NiHeader.hpp"
 
 enum class ZBufferTestFunction : uint32_t
 {

@@ -1,10 +1,10 @@
 #pragma once
-#include "../../Core/NiHeader.hpp"
-#include "../../Reader.hpp"
-#include "../../Types/MipMap.hpp"
-#include "../NiPalette.hpp"
-#include "../NiPixelFormat.hpp"
-#include "../../Types/Ref.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Types/MipMap.hpp"
+#include "NiPalette.hpp"
+#include "NiPixelFormat.hpp"
+#include "Types/Ref.hpp"
 #include <cstdint>
 #include <vector>
 

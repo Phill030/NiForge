@@ -1,5 +1,5 @@
 #pragma once
-#include "../Reader.hpp"
+#include "Reader.hpp"
 #include "NiVersion.hpp"
 #include <cstdint>
 #include <stdexcept>

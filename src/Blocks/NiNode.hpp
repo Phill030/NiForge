@@ -1,7 +1,7 @@
 #pragma once
-#include "../Core/NiHeader.hpp"
-#include "../Reader.hpp"
-#include "../Types/Ref.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Types/Ref.hpp"
 #include "NiAvObject.hpp"
 #include "NiDynamicEffect.hpp"
 #include <cstdint>

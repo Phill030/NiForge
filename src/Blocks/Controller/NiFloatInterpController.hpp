@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Reader.hpp"
+#include "Reader.hpp"
 #include "NiSingleInterpController.hpp"
 
 struct NiFloatInterpController : NiSingleInterpController

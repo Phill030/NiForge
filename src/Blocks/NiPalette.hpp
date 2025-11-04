@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Types/Color4.hpp"
-#include "../Reader.hpp"
+#include "Types/Color4.hpp"
+#include "Reader.hpp"
 #include "NiObject.hpp"
 #include <cstdint>
 

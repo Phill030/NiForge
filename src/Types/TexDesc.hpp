@@ -1,8 +1,8 @@
 #pragma once
-#include "../Blocks/NiSourceTexture.hpp"
-#include "../Core/NiHeader.hpp"
-#include "../Core/NiVersion.hpp"
-#include "../Reader.hpp"
+#include "Blocks/NiSourceTexture.hpp"
+#include "Core/NiHeader.hpp"
+#include "Core/NiVersion.hpp"
+#include "Reader.hpp"
 #include "Ref.hpp"
 #include "TexCoord.hpp"
 #include <cstdint>
@@ -45,7 +45,7 @@ public:
 	std::optional<uint16_t> maxAnisotropy;
 
 	bool hasTextureTransform;
-	optional<TextureTransform> textureTransform;
+	std::optional<TextureTransform> textureTransform;
 
 	TexDesc(Reader& reader, const NiHeader& header) : source(Ref<NiSourceTexture>(reader)) {
 		flags = reader.read<uint16_t>();

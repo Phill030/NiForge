@@ -1,9 +1,9 @@
 #pragma once
-#include "../../Core/NiHeader.hpp"
-#include "../../Reader.hpp"
-#include "../../Types/Matrix.hpp"
-#include "../../Types/ShaderTexDesc.hpp"
-#include "../../Types/TexDesc.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Types/Matrix.hpp"
+#include "Types/ShaderTexDesc.hpp"
+#include "Types/TexDesc.hpp"
 #include "NiProperty.hpp"
 #include <cstdint>
 #include <optional>

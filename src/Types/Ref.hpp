@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Blocks/NiObject.hpp"
-#include "../Reader.hpp"
+#include "Blocks/NiObject.hpp"
+#include "Reader.hpp"
 #include <cstdint>
 #include <type_traits>
 

@@ -1,8 +1,8 @@
 #pragma once
-#include "../Blocks/NiNode.hpp"
-#include "../Blocks/NiObject.hpp"
-#include "../Reader.hpp"
-#include "../Types/Ref.hpp"
+#include "Blocks/NiNode.hpp"
+#include "Blocks/NiObject.hpp"
+#include "Reader.hpp"
+#include "Types/Ref.hpp"
 #include "NiHeader.hpp"
 #include <cstdint>
 #include <memory>

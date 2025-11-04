@@ -1,7 +1,7 @@
 #pragma once
 #include "NiTriBasedGeom.hpp"
-#include "../Core/NiHeader.hpp"
-#include "../Reader.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
 
 struct NiTriShape : NiTriBasedGeom
 {

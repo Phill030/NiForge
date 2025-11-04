@@ -1,6 +1,6 @@
-#include "../Blocks/NiNode.hpp"
-#include "../Blocks/NiObject.hpp"
-#include "../Reader.hpp"
+#include "Blocks/NiNode.hpp"
+#include "Blocks/NiObject.hpp"
+#include "Reader.hpp"
 #include "NiFile.hpp"
 #include "NiHeader.hpp"
 #include <cctype>

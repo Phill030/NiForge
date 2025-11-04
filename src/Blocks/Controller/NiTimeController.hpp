@@ -1,7 +1,7 @@
 #pragma once
-#include "../../Reader.hpp"
-#include "../../Types/Ref.hpp"
-#include "../NiObject.hpp"
+#include "Reader.hpp"
+#include "Types/Ref.hpp"
+#include "NiObject.hpp"
 #include <cstdint>
 #include <memory>
 

@@ -1,8 +1,8 @@
 #pragma once
-#include "../../Core/NiHeader.hpp"
-#include "../../Reader.hpp"
-#include "../../Types/Ref.hpp"
-#include "../NiInterpolator.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Types/Ref.hpp"
+#include "NiInterpolator.hpp"
 #include "NiInterpController.hpp"
 #include <cstdint>
 #include <string>

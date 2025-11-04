@@ -1,7 +1,7 @@
 #pragma once
-#include "../../Core/NiHeader.hpp"
-#include "../../Reader.hpp"
-#include "../../Types/Color3.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Types/Color3.hpp"
 #include "NiProperty.hpp"
 
 // Describes the surface properties of an object e.g. translucency, ambient color, diffuse color, emissive color, and specular color. 

@@ -1,8 +1,8 @@
 #pragma once
 #include <cstdint>
-#include "../../Types/Ref.hpp"
+#include "Types/Ref.hpp"
 #include "NiFloatInterpController.hpp"
-#include "../../Core/NiHeader.hpp"
+#include "Core/NiHeader.hpp"
 
 enum class TexType : uint32_t
 {

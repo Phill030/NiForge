@@ -1,7 +1,7 @@
 #pragma once
-#include "../../Reader.hpp"
-#include "../NiObjectNet.hpp"
-#include "../../Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "NiObjectNet.hpp"
+#include "Core/NiHeader.hpp"
 
 // Abstract base class representing all rendering properties.
 // Subclasses are attached to NiAVObjects to control their rendering.

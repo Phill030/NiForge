@@ -4,9 +4,9 @@
 #include "NiDataStream.hpp"
 #include <cstdint>
 #include <vector>
-#include "../Types/MaterialData.hpp"
-#include "../Core/NiHeader.hpp"
-#include "../Reader.hpp"
+#include "Types/MaterialData.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
 
 enum class MeshPrimitiveType : uint32_t
 {

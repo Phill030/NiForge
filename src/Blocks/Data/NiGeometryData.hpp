@@ -1,9 +1,9 @@
 #pragma once
-#include "../../Core/NiHeader.hpp"
-#include "../../Reader.hpp"
-#include "../../Types/TexCoord.hpp"
-#include "../../Types/Vector3.hpp"
-#include "../NiObject.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Types/TexCoord.hpp"
+#include "Types/Vector3.hpp"
+#include "NiObject.hpp"
 #include <cstdint>
 #include <vector>
 

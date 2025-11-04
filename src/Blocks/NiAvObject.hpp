@@ -1,9 +1,9 @@
 #pragma once
 #include "NiObjectNet.hpp"
-#include "../Core/NiHeader.hpp"
-#include "../Reader.hpp"
-#include "../Types/Matrix.hpp"
-#include "../Types/Vector3.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Types/Matrix.hpp"
+#include "Types/Vector3.hpp"
 #include <cstdint>
 #include <vector>
 

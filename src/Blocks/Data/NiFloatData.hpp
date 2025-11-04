@@ -1,9 +1,9 @@
 #pragma once
-#include "../../Core/NiHeader.hpp"
-#include "../../Reader.hpp"
-#include "../../Types/Key.hpp"
-#include "../../Types/KeyGroup.hpp"
-#include "../NiObject.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Types/Key.hpp"
+#include "Types/KeyGroup.hpp"
+#include "NiObject.hpp"
 #include <cstdint>
 #include <cstdio>
 

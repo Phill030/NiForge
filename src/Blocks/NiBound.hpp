@@ -1,7 +1,7 @@
 #pragma once
-#include "../Types/Vector3.hpp"
-#include "../Core/NiHeader.hpp"
-#include "../Reader.hpp"
+#include "Types/Vector3.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
 
 struct NiBound
 {

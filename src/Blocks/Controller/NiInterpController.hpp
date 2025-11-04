@@ -1,6 +1,6 @@
 #pragma once
 #include "NiTimeController.hpp"
-#include "../../Reader.hpp"
+#include "Reader.hpp"
 
 struct NiInterpController : NiTimeController
 {

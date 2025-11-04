@@ -1,6 +1,6 @@
 #pragma once
-#include "../Core/NiHeader.hpp"
-#include "../Reader.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
 #include "NiAvObject.hpp"
 #include <cstdint>
 #include <vector>

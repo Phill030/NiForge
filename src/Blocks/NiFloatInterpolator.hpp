@@ -1,9 +1,9 @@
 #pragma once
 #include "NiKeyBasedInterpolator.hpp"
-#include "../Reader.hpp"
-#include "../Core/NiHeader.hpp"
+#include "Reader.hpp"
+#include "Core/NiHeader.hpp"
 #include "Data/NiFloatData.hpp"
-#include "../Types/Ref.hpp"
+#include "Types/Ref.hpp"
 
 struct NiFloatInterpolator : NiKeyBasedInterpolator
 {

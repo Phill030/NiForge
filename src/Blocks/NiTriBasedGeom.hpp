@@ -1,6 +1,6 @@
 #pragma once
-#include "../Core/NiHeader.hpp"
-#include "../Reader.hpp"
+#include "Core/NiHeader.hpp"
+#include "Reader.hpp"
 #include "NiGeometry.hpp"
 
 struct NiTriBasedGeom : NiGeometry
