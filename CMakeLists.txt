@@ -49,7 +49,6 @@ set(HEADER_FILES
     "src/Blocks/NiSourceTexture.hpp"
     "src/Blocks/NiTexture.hpp"
     "src/Blocks/NiTriBasedGeom.hpp"
-    "src/Blocks/NiTriBasedGeomData.hpp"
     "src/Blocks/NiTriShape.hpp"
 
     "src/Blocks/Controller/NiFloatInterpController.hpp"
@@ -68,6 +67,7 @@ set(HEADER_FILES
     "src/Blocks/Data/NiPixelData.hpp"
     "src/Blocks/Data/NiStringExtraData.hpp"
     "src/Blocks/Data/NiTriShapeData.hpp"
+    "src/Blocks/Data/NiTriBasedGeomData.hpp"
 
     "src/Blocks/DataStreamData/DataStreamColor.hpp"
     "src/Blocks/DataStreamData/DataStreamData.hpp"
