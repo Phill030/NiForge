@@ -39,9 +39,12 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <Types/Color4.hpp>
-#include <Types/TexCoord.hpp>
-#include <Types/Vector3.hpp>
+#include "Types/Color4.hpp"
+#include "Types/TexCoord.hpp"
+#include "Types/Vector3.hpp"
+#include <fstream>
+#include <ios>
+#include <stdexcept>
 
 template<typename T>
 void addStreamValue(std::vector<std::unique_ptr<DataStreamData>>& streams, const typename T::value_type& value) {
@@ -93,7 +96,7 @@ static const unordered_map<string, function<shared_ptr<NiObject>(Reader&, NiHead
             {"NiPixelData", [](Reader& r, NiHeader& h) { return std::make_shared<NiPixelData>(r, h); }},
 };
 
-NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) {
+void NiFile::parseBlocks() {
     for (uint32_t i = 0; i < header.numBlocks; ++i) {
         string blockType = getReadableText(header.blockTypes[header.blockTypeIndex[i]]);
 
@@ -109,7 +112,9 @@ NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) 
             reader.read(blockSize);
         }
     }
+}
 
+void NiFile::parseDataStreams() {
     for (auto& block : blocks) {
         if (!block) {
             printf("Null block encountered!\n");
@@ -153,4 +158,29 @@ NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) 
             }
         }
     }
+}
+
+NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) {
+	parseBlocks();
+    parseDataStreams();
+}
+
+NiFile::NiFile(const std::string& filePath) {
+    std::ifstream file(filePath, std::ios::binary);
+    if (!file)
+        throw std::runtime_error("Failed to open file: " + filePath);
+
+    std::vector<uint8_t> data;
+
+    std::streamsize size = file.tellg();
+    file.seekg(0, std::ios::beg);
+    data.resize(size);
+    if (!file.read(reinterpret_cast<char*>(data.data()), size))
+        throw std::runtime_error("Failed to read file: " + filePath);
+
+	reader = Reader(data);
+	header = NiHeader(reader);
+
+    parseBlocks();
+    parseDataStreams();
 }

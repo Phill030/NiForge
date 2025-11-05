@@ -9,10 +9,12 @@
 #include "Types/TexCoord.hpp"
 #include "Types/MipMap.hpp"
 #include "Types/MatchGroup.hpp"
+#include "Defines.hpp"
 
 
-struct Reader
+struct NIFORGE_API Reader
 {
+	Reader() = default;
 	explicit Reader(const std::vector<uint8_t>& data);
 
 	template<typename T>

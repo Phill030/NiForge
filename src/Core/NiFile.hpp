@@ -1,15 +1,17 @@
 #pragma once
 #include "Blocks/NiNode.hpp"
 #include "Blocks/NiObject.hpp"
+#include "NiHeader.hpp"
 #include "Reader.hpp"
 #include "Types/Ref.hpp"
-#include "NiHeader.hpp"
 #include <cstdint>
 #include <memory>
+#include <string>
 #include <type_traits>
 #include <vector>
+#include <Defines.hpp>
 
-struct NiFile
+struct NIFORGE_API NiFile
 {
 private:
     Reader reader;
@@ -19,6 +21,8 @@ public:
 	std::vector<std::shared_ptr<NiObject>> blocks;
 
 	explicit NiFile(const std::vector<uint8_t>& data);
+    explicit NiFile(const std::string& filePath);
+
 	NiFile(const NiFile&) = delete;
 	NiFile& operator=(const NiFile&) = delete;
 	NiFile& operator=(NiFile&&) = default;
@@ -51,7 +55,9 @@ public:
         return roots;
     }
 
-    
+private:
+    void parseBlocks();
+    void parseDataStreams();
 };
 
 // NiFile is now fully defined

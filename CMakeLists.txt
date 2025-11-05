@@ -8,7 +8,18 @@ endif()
 
 project ("NiForge")
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+enable_testing()
+
 set(HEADER_FILES
+    "src/Defines.hpp"
     "src/Reader.hpp"
     "src/Core/NiVersion.hpp"
     "src/Core/NiHeader.hpp"
@@ -95,6 +106,20 @@ add_library(${PROJECT_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
+
+# TESTS
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
+)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+add_executable(NiForgeTests
+    tests/test_parser.cpp
+)
+# END TESTS
+
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 endif()
@@ -107,3 +132,17 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
 )
 
+# TESTS
+
+add_custom_command(TARGET NiForgeTests POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${CMAKE_CURRENT_SOURCE_DIR}/tests/data"
+    $<TARGET_FILE_DIR:NiForgeTests>/data
+    COMMENT "Copying test data for NiForgeTests..."
+)
+
+target_link_libraries(NiForgeTests PRIVATE NiForge gtest_main)
+include(GoogleTest)
+gtest_discover_tests(NiForgeTests)
+
+#END TESTS

@@ -24,9 +24,6 @@ struct NiHeader
 	std::string getIndexString(Reader& reader) const {
 		int32_t stringIndex = reader.read<int32_t>();
 
-		if(stringIndex < 0 || static_cast<size_t>(stringIndex) > strings.size())
-			throw std::out_of_range("String index out of range");
-
 		if (stringIndex == 0xFFFFFFFF) {
 			return "";
 		}
@@ -34,6 +31,7 @@ struct NiHeader
 		return strings[stringIndex];
 	}
 
+	NiHeader() = default;
 	NiHeader(Reader& reader) {
 		header = reader.readUntilNull();
 		version = NiVersion(reader.read<uint32_t>());
