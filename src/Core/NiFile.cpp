@@ -1,8 +1,3 @@
-#include "Blocks/NiNode.hpp"
-#include "Blocks/NiObject.hpp"
-#include "NiFile.hpp"
-#include "NiHeader.hpp"
-#include "Reader.hpp"
 #include "Blocks/Controller/NiMorphWeightsController.hpp"
 #include "Blocks/Controller/NiTextureTransformController.hpp"
 #include "Blocks/Data/NiBooleanExtraData.hpp"
@@ -13,15 +8,17 @@
 #include "Blocks/Data/NiStringExtraData.hpp"
 #include "Blocks/Data/NiTriShapeData.hpp"
 #include "Blocks/DataStreamData/DataStreamColor.hpp"
+#include "Blocks/DataStreamData/DataStreamData.hpp"
 #include "Blocks/DataStreamData/DataStreamIndex.hpp"
 #include "Blocks/DataStreamData/DataStreamNormal.hpp"
 #include "Blocks/DataStreamData/DataStreamPosition.hpp"
 #include "Blocks/DataStreamData/DataStreamTexCoord.hpp"
-#include "Blocks/DataStreamData/DataStreamData.hpp"
 #include "Blocks/NiBillboardNode.hpp"
 #include "Blocks/NiDataStream.hpp"
 #include "Blocks/NiFloatInterpolator.hpp"
 #include "Blocks/NiMesh.hpp"
+#include "Blocks/NiNode.hpp"
+#include "Blocks/NiObject.hpp"
 #include "Blocks/NiSourceTexture.hpp"
 #include "Blocks/NiTriShape.hpp"
 #include "Blocks/Property/NiAlphaProperty.hpp"
@@ -31,20 +28,24 @@
 #include "Blocks/Property/NiTexturingProperty.hpp"
 #include "Blocks/Property/NiVertexColorProperty.hpp"
 #include "Blocks/Property/NiZBufferProperty.hpp"
-#include <cctype>
-#include <cstdint>
-#include <cstdio>
-#include <functional>
-#include <memory>
-#include <string>
-#include <unordered_map>
-#include <vector>
+#include "NiFile.hpp"
+#include "NiHeader.hpp"
+#include "Reader.hpp"
 #include "Types/Color4.hpp"
 #include "Types/TexCoord.hpp"
 #include "Types/Vector3.hpp"
+#include "Blocks/Data/NiBoolData.hpp"
+#include <cctype>
+#include <cstdint>
+#include <cstdio>
 #include <fstream>
+#include <functional>
 #include <ios>
+#include <memory>
 #include <stdexcept>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 template<typename T>
 void addStreamValue(std::vector<std::unique_ptr<DataStreamData>>& streams, const typename T::value_type& value) {
@@ -94,6 +95,7 @@ static const unordered_map<string, function<shared_ptr<NiObject>(Reader&, NiHead
             {"NiTriShape", [](Reader& r, NiHeader& h) { return std::make_shared<NiTriShape>(r, h); }},
             {"NiTriShapeData", [](Reader& r, NiHeader& h) { return std::make_shared<NiTriShapeData>(r, h); }},
             {"NiPixelData", [](Reader& r, NiHeader& h) { return std::make_shared<NiPixelData>(r, h); }},
+            {"NiBoolData", [](Reader& r, NiHeader& h) { return std::make_shared<NiBoolData>(r, h); }},
 };
 
 void NiFile::parseBlocks() {

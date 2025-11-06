@@ -69,6 +69,7 @@ set(HEADER_FILES
     "src/Blocks/Controller/NiTextureTransformController.hpp"
     "src/Blocks/Controller/NiTimeController.hpp"
 
+    "src/Blocks/Data/NiBoolData.hpp"
     "src/Blocks/Data/NiBooleanExtraData.hpp"
     "src/Blocks/Data/NiExtraData.hpp"
     "src/Blocks/Data/NiFloatData.hpp"
