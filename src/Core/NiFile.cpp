@@ -169,18 +169,18 @@ NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) 
 
 NiFile::NiFile(const std::string& filePath) {
     std::ifstream file(filePath, std::ios::binary);
-    if (!file)
+    if (!file.is_open())
         throw std::runtime_error("Failed to open file: " + filePath);
 
-    std::vector<uint8_t> data;
-
+    file.seekg(0, std::ios::end);
     std::streamsize size = file.tellg();
     file.seekg(0, std::ios::beg);
-    data.resize(size);
-    if (!file.read(reinterpret_cast<char*>(data.data()), size))
+
+    std::vector<uint8_t> buffer(size);
+    if (!file.read(reinterpret_cast<char*>(buffer.data()), size))
         throw std::runtime_error("Failed to read file: " + filePath);
 
-	reader = Reader(data);
+	reader = Reader(buffer);
 	header = NiHeader(reader);
 
     parseBlocks();
