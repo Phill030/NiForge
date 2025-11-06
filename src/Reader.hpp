@@ -1,15 +1,15 @@
 #pragma once
-#include <vector>
-#include <string>
-#include "Types/Vector3.hpp"
+#include "Defines.hpp"
 #include "Types/Color3.hpp"
 #include "Types/Color4.hpp"
-#include "Types/Matrix.hpp"
-#include "Types/Triangle.hpp"
-#include "Types/TexCoord.hpp"
-#include "Types/MipMap.hpp"
 #include "Types/MatchGroup.hpp"
-#include "Defines.hpp"
+#include "Types/Matrix.hpp"
+#include "Types/MipMap.hpp"
+#include "Types/TexCoord.hpp"
+#include "Types/Triangle.hpp"
+#include "Types/Vector3.hpp"
+#include <string>
+#include <vector>
 
 
 struct NIFORGE_API Reader
