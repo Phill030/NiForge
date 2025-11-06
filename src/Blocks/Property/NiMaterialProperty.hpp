@@ -5,7 +5,7 @@
 #include "NiProperty.hpp"
 
 // Describes the surface properties of an object e.g. translucency, ambient color, diffuse color, emissive color, and specular color. 
-struct NiMaterialProperty : NiProperty
+struct NIFORGE_API NiMaterialProperty : NiProperty
 {
 public:
 	Color3 ambientColor;

@@ -9,7 +9,7 @@
 #include <vector>
 
 // This class adds (N)ames, (E)xtra Data, and (T)ime controllers to NiObject.
-struct NiObjectNet : NiObject
+struct NIFORGE_API NiObjectNet : NiObject
 {
 	std::string name;
 	std::vector<Ref<NiExtraData>> extraData;

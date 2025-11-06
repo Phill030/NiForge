@@ -10,7 +10,7 @@
 #include <vector>
 
 // Describes how a fragment shader should be configured for a given piece of geometry. 
-struct NiTexturingProperty : NiProperty
+struct NIFORGE_API NiTexturingProperty : NiProperty
 {
 public:
 	uint16_t flags;

@@ -1,7 +1,7 @@
 #pragma once
 #include "NiInterpolator.hpp"
 
-struct NiKeyBasedInterpolator : NiInterpolator
+struct NIFORGE_API NiKeyBasedInterpolator : NiInterpolator
 {
 	virtual ~NiKeyBasedInterpolator() = default;
 };

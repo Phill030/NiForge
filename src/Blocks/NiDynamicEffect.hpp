@@ -6,7 +6,7 @@
 #include <vector>
 
 // Abstract base class for dynamic effects such as NiLights or projected texture effects. 
-struct NiDynamicEffect : NiAvObject
+struct NIFORGE_API NiDynamicEffect : NiAvObject
 {
 	bool switchState; // If true, then the dynamic effect is applied to affected nodes during rendering.
 	uint32_t numAffectedNodes;

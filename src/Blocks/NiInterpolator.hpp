@@ -1,7 +1,7 @@
 #pragma once
 #include "NiObject.hpp"
 
-struct NiInterpolator : NiObject
+struct NIFORGE_API NiInterpolator : NiObject
 {
 	virtual ~NiInterpolator() = default;
 };

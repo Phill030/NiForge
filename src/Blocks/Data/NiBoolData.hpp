@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <string>
 
-struct NiBoolData : NiObject
+struct NIFORGE_API NiBoolData : NiObject
 {
 	KeyGroup<uint8_t> data;
 

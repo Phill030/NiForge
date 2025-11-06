@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <vector>
 
-struct NiTriShapeData : NiTriBasedGeomData
+struct NIFORGE_API NiTriShapeData : NiTriBasedGeomData
 {
     uint32_t numTrianglePoints;
 

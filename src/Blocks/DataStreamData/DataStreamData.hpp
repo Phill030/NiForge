@@ -1,6 +1,6 @@
 #pragma once
 
-struct DataStreamData
+struct NIFORGE_API DataStreamData
 {
 	virtual ~DataStreamData() = default;
 };

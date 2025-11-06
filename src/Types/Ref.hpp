@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Blocks/NiObject.hpp"
 #include "Reader.hpp"
 #include <cstdint>

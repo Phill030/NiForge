@@ -4,7 +4,7 @@
 #include "NiFloatInterpController.hpp"
 #include "Core/NiHeader.hpp"
 
-enum class TexType : uint32_t
+enum class NIFORGE_API TexType : uint32_t
 {
     BASE_MAP = 0,  // The basic texture used by most meshes.
     DARK_MAP = 1,  // Used to darken the model with false lighting.
@@ -20,7 +20,7 @@ enum class TexType : uint32_t
     DECAL_3_MAP = 11  // Sticker-like overlay on surface.
 };
 
-enum class TransformMember : uint32_t
+enum class NIFORGE_API TransformMember : uint32_t
 {
     TT_TRANSLATE_U = 0, // Controls the translation of the U coordinates.
     TT_TRANSLATE_V = 1, // Controls the translation of the V coordinates.
@@ -36,7 +36,7 @@ NiInterpController::GetCtlrID() string formats:
 (Depending on "Operation" enumeration, %1 = Value of "Shader Map", %2 = Value of "Texture Slot")
 
 */
-struct NiTextureTransformController : NiFloatInterpController
+struct NIFORGE_API NiTextureTransformController : NiFloatInterpController
 {
 	bool shaderMap;
 	TexType textureSlot;

@@ -4,7 +4,7 @@
 #include "Reader.hpp"
 #include "Core/NiHeader.hpp"
 
-enum class ZBufferTestFunction : uint32_t
+enum class NIFORGE_API ZBufferTestFunction : uint32_t
 {
     Always = 0,
     Less = 1,
@@ -16,14 +16,14 @@ enum class ZBufferTestFunction : uint32_t
     Never = 7
 };
 
-enum class ZBufferFlags : uint16_t
+enum class NIFORGE_API ZBufferFlags : uint16_t
 {
     Test = 0b00000001,
     Write = 0b00000010,
     Func = 0b00000100,
 };
 
-struct NiZBufferProperty : NiProperty
+struct NIFORGE_API NiZBufferProperty : NiProperty
 {
 private:
     uint16_t flags = 0;

@@ -1,7 +1,8 @@
 #pragma once
 #include "NiObject.hpp"
+#include "Defines.hpp"
 
-struct NiSkinInstance : NiObject
+struct NIFORGE_API NiSkinInstance : NiObject
 {
 
 };

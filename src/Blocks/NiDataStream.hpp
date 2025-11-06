@@ -9,14 +9,14 @@
 #include <string>
 #include <vector>
 
-enum class CloningBehavior : uint32_t
+enum class NIFORGE_API CloningBehavior : uint32_t
 {
     CLONING_SHARE = 0, // Share this object pointer with the newly cloned scene
     CLONING_COPY = 1, // Create an exact duplicate of this object for the cloned scene
     CLONING_BLANK_COPY = 2  // Create a copy for the cloned stream, leaving data to be written later
 };
 
-enum class ComponentFormat : uint32_t
+enum class NIFORGE_API ComponentFormat : uint32_t
 {
     F_UNKNOWN = 0x00000000,
 
@@ -98,7 +98,7 @@ enum class ComponentFormat : uint32_t
     F_UINT_10_10_10_2 = 0x0001043E
 };
 
-struct SemanticData
+struct NIFORGE_API SemanticData
 {
 public:
     /// <summary>
@@ -119,7 +119,7 @@ public:
     }
 };
 
-struct Region
+struct NIFORGE_API Region
 {
 public:
     uint32_t startIndex;
@@ -132,45 +132,51 @@ public:
 	}
 };
 
-struct NiDataStream : NiObject
+struct NIFORGE_API NiDataStream : NiObject
 {
 public:
     uint32_t numBytes;
     CloningBehavior cloningBehavior;
     uint32_t numRegions;
-	std::vector<Region> regions;
+    std::vector<Region> regions;
     uint32_t numComponents;
-	std::vector<ComponentFormat> componentFormats;
+    std::vector<ComponentFormat> componentFormats;
     std::vector<uint8_t> data;
-    bool streamable; 
+    bool streamable;
 
-    // Later constructed
-	/// <summary>
-	/// CUSTOM: The parsed semantic data from this data stream.
-	/// </summary>
+    /// CUSTOM: The parsed semantic data from this data stream.
     std::vector<std::unique_ptr<DataStreamData>> semanticData;
 
+    // Constructor
     NiDataStream(Reader& reader, NiHeader& header) {
         numBytes = reader.read<uint32_t>();
-		cloningBehavior = static_cast<CloningBehavior>(reader.read<uint32_t>());
-		numRegions = reader.read<uint32_t>();
+        cloningBehavior = static_cast<CloningBehavior>(reader.read<uint32_t>());
+        numRegions = reader.read<uint32_t>();
         regions.reserve(numRegions);
-        for (int i = 0; i < numRegions; i++) {
-            regions.push_back(Region(reader, header));
+        for (uint32_t i = 0; i < numRegions; ++i) {
+            regions.emplace_back(reader, header);
         }
-		numComponents = reader.read<uint32_t>();
+
+        numComponents = reader.read<uint32_t>();
         componentFormats.reserve(numComponents);
-        for (int i = 0; i < numComponents; i++) {
+        for (uint32_t i = 0; i < numComponents; ++i) {
             componentFormats.push_back(static_cast<ComponentFormat>(reader.read<uint32_t>()));
-		}
+        }
 
         data = reader.read(numBytes);
-
-		streamable = reader.read<bool>();
+        streamable = reader.read<bool>();
     }
+
+    // Prevent copying (unique_ptr is non-copyable)
+    NiDataStream(const NiDataStream&) = delete;
+    NiDataStream& operator=(const NiDataStream&) = delete;
+
+    // Allow moving
+    NiDataStream(NiDataStream&&) noexcept = default;
+    NiDataStream& operator=(NiDataStream&&) noexcept = default;
 };
 
-struct DataStreamRef
+struct NIFORGE_API DataStreamRef
 {
 public:
 	Ref<NiDataStream> stream;

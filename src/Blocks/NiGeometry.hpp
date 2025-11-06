@@ -5,7 +5,7 @@
 #include "Types/Ref.hpp"
 #include "Types/MaterialData.hpp"
 
-struct NiGeometry : NiAvObject
+struct NIFORGE_API NiGeometry : NiAvObject
 {
 public:
 	Ref<NiGeometryData> data;

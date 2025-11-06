@@ -3,7 +3,7 @@
 #include "Types/Ref.hpp"
 #include "Blocks/NiInterpolator.hpp"
 
-struct NiSingleInterpController : NiInterpController
+struct NIFORGE_API NiSingleInterpController : NiInterpController
 {
 	Ref<NiInterpolator> interpolator;
 	NiSingleInterpController(Reader& reader) : NiInterpController(reader),

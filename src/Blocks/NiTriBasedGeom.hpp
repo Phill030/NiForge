@@ -3,7 +3,7 @@
 #include "Reader.hpp"
 #include "NiGeometry.hpp"
 
-struct NiTriBasedGeom : NiGeometry
+struct NIFORGE_API NiTriBasedGeom : NiGeometry
 {
 	NiTriBasedGeom(Reader& reader, const NiHeader& header) : NiGeometry(reader, header) {}
 };

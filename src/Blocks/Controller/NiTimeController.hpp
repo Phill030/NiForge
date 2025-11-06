@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <memory>
 
-struct NiTimeController : NiObject
+struct NIFORGE_API NiTimeController : NiObject
 {
 	std::unique_ptr<Ref<NiTimeController>> nextController; // Index of the next controller.
 	uint16_t flags;

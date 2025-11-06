@@ -2,7 +2,7 @@
 #include "NiTimeController.hpp"
 #include "Reader.hpp"
 
-struct NiInterpController : NiTimeController
+struct NIFORGE_API NiInterpController : NiTimeController
 {
 	NiInterpController(Reader& reader) : NiTimeController(reader) {}
 };

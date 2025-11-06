@@ -1,6 +1,8 @@
 #pragma once
+#include "Defines.hpp"
+
 // Abstract object type. 
-struct NiObject
+struct NIFORGE_API NiObject
 {
 	virtual ~NiObject() = default;
 };

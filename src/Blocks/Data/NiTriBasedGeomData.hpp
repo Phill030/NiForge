@@ -4,7 +4,7 @@
 #include "NiGeometryData.hpp"
 #include <cstdint>
 
-struct NiTriBasedGeomData : NiGeometryData
+struct NIFORGE_API NiTriBasedGeomData : NiGeometryData
 {
 	uint16_t numTriangles;
 

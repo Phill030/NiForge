@@ -1,7 +1,8 @@
 #pragma once
 #include "NiObject.hpp"
+#include "Defines.hpp"
 
-struct AbstractAdditionalGeometryData : NiObject
+struct NIFORGE_API AbstractAdditionalGeometryData : NiObject
 {
 	AbstractAdditionalGeometryData() = default;
 };

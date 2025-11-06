@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-struct Color4
+struct NIFORGE_API Color4
 {
 	uint8_t r, g, b, a;
 	Color4() : r(0), g(0), b(0), a(0) {}

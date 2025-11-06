@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-struct NiMorphWeightsController : NiInterpController
+struct NIFORGE_API NiMorphWeightsController : NiInterpController
 {
 	uint32_t count;
 	uint32_t numInterpolators;

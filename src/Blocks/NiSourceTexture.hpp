@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <string>
 
-struct NiSourceTexture : NiTexture
+struct NIFORGE_API NiSourceTexture : NiTexture
 {
 public:
 	uint8_t useExternal;

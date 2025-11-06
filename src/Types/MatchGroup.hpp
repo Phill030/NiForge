@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <vector>
 
-struct MatchGroup
+struct NIFORGE_API MatchGroup
 {
 	uint16_t numVertices;
 	std::vector<uint16_t> vertexIndices;

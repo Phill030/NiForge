@@ -3,7 +3,7 @@
 #include "Types/TexCoord.hpp"
 #include <vector>
 
-struct DataStreamTexCoord : DataStreamData
+struct NIFORGE_API DataStreamTexCoord : DataStreamData
 {
 	using value_type = TexCoord;
 	std::vector<TexCoord> values;

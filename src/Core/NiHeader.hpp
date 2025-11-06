@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-struct NiHeader
+struct NIFORGE_API NiHeader
 {
 	std::string header;
 	NiVersion version;

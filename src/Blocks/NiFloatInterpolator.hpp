@@ -5,7 +5,7 @@
 #include "Data/NiFloatData.hpp"
 #include "Types/Ref.hpp"
 
-struct NiFloatInterpolator : NiKeyBasedInterpolator
+struct NIFORGE_API NiFloatInterpolator : NiKeyBasedInterpolator
 {
 public:
 	float value; // Pose value if lacking NiFloatData.

@@ -1,6 +1,6 @@
 #pragma once
 
-struct TexCoord
+struct NIFORGE_API TexCoord
 {
 	float u, v;
 	TexCoord() : u(0.0f), v(0.0f) {}

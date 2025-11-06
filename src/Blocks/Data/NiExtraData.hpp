@@ -4,7 +4,7 @@
 #include "Reader.hpp"
 #include <string>
 
-struct NiExtraData : NiObject
+struct NIFORGE_API NiExtraData : NiObject
 {
 	std::string name; // Name of this object
 	NiExtraData(Reader& reader, const NiHeader& header) {

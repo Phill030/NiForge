@@ -3,7 +3,7 @@
 #include "Types/Vector3.hpp"
 #include <vector>
 
-struct DataStreamPosition : DataStreamData
+struct NIFORGE_API DataStreamPosition : DataStreamData
 {
 	using value_type = Vector3;
 	std::vector<Vector3> values;

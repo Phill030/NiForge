@@ -8,7 +8,7 @@
 #include "Core/NiHeader.hpp"
 #include "Reader.hpp"
 
-enum class MeshPrimitiveType : uint32_t
+enum class NIFORGE_API MeshPrimitiveType : uint32_t
 {
     Triangles= 0, // Triangle primitive type
     TripStrips= 1, // Triangle strip primitive type
@@ -18,7 +18,7 @@ enum class MeshPrimitiveType : uint32_t
     PrimitivePoints = 5  // Point primitive type
 };
 
-struct NiMesh : NiAvObject
+struct NIFORGE_API NiMesh : NiAvObject
 {
 public:
 	MaterialData materialData;

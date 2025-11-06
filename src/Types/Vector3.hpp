@@ -2,7 +2,7 @@
 #include <string>
 #include <format>
 
-struct Vector3
+struct NIFORGE_API Vector3
 {
 	float x, y, z;
 

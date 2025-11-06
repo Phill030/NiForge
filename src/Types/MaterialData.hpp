@@ -5,7 +5,7 @@
 #include "Reader.hpp"
 #include "Core/NiHeader.hpp"
 
-struct MaterialData
+struct NIFORGE_API MaterialData
 {
 public:
 	uint32_t numMaterials;

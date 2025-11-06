@@ -4,7 +4,7 @@
 #include "Core/NiHeader.hpp"
 #include "Reader.hpp"
 
-struct ShaderTexDesc
+struct NIFORGE_API ShaderTexDesc
 {
 	bool hasMap;
 	TexDesc map;

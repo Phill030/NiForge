@@ -71,7 +71,7 @@ std::string getReadableText(const std::string& input) {
     return result;
 }
 
-static const unordered_map<string, function<shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
+static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
             {"NiNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiNode>(r, h); }},
             {"NiZBufferProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiZBufferProperty>(r, h); }},
             {"NiVertexColorProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiVertexColorProperty>(r, h); }},
@@ -100,7 +100,7 @@ static const unordered_map<string, function<shared_ptr<NiObject>(Reader&, NiHead
 
 void NiFile::parseBlocks() {
     for (uint32_t i = 0; i < header.numBlocks; ++i) {
-        string blockType = getReadableText(header.blockTypes[header.blockTypeIndex[i]]);
+        std::string blockType = getReadableText(header.blockTypes[header.blockTypeIndex[i]]);
 
         printf("Current index: %u, blockType: %s\n", i, blockType.c_str());
 

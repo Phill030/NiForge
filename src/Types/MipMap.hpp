@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-struct MipMap
+struct NIFORGE_API MipMap
 {
 	uint32_t width, height, offset;
 	MipMap() : width(0), height(0), offset(0) {}

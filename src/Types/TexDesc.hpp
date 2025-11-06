@@ -10,14 +10,14 @@
 
 #define ExcludeVersion(ver) if (header.version !=  ver)
 
-enum class TransformMethod : uint32_t
+enum class NIFORGE_API TransformMethod : uint32_t
 {
 	TM_MayaDeprecated = 0, // Center * Rotation * Back * Translate * Scale
 	TM_Max = 1, // Center * Scale * Rotation * Translate * Back
 	TM_Maya = 2  // Center * Rotation * Back * FromMaya * Translate * Scale
 };
 
-struct TextureTransform
+struct NIFORGE_API TextureTransform
 {
 public:
 	TexCoord translation;
@@ -35,7 +35,7 @@ public:
 
 };
 
-struct TexDesc
+struct NIFORGE_API TexDesc
 {
 public:
 	Ref<NiSourceTexture> source; // Reference to a NiSourceTexture block

@@ -8,7 +8,7 @@
 #include <vector>
 
 
-struct NiAvObject : NiObjectNet
+struct NIFORGE_API NiAvObject : NiObjectNet
 {
 	uint16_t flags;
 	Vector3 translation;

@@ -3,7 +3,7 @@
 #include <vector>
 #include "Key.hpp"
 
-enum class KeyType : uint32_t
+enum class NIFORGE_API KeyType : uint32_t
 {
     LINEAR_KEY = 1, // Use linear interpolation.
     QUADRATIC_KEY = 2, // Use quadratic interpolation (stores forward/back tangents).
@@ -13,7 +13,7 @@ enum class KeyType : uint32_t
 };
 
 template<typename T>
-struct KeyGroup
+struct NIFORGE_API KeyGroup
 {
     uint32_t numKeys;
     KeyType interpolation;

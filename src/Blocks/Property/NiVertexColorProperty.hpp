@@ -4,7 +4,7 @@
 #include "Reader.hpp"
 #include "Core/NiHeader.hpp"
 
-enum class LightningMode : uint32_t
+enum class NIFORGE_API LightningMode : uint32_t
 {
 	// Only the emissive component of the lighting equation is used. No dynamic lights are considered in the lighting process
 	LIGHTING_E = 0,
@@ -12,7 +12,7 @@ enum class LightningMode : uint32_t
 	LIGHTING_E_A_D = 1,
 };
 
-enum class VertexMode : uint16_t
+enum class NIFORGE_API VertexMode : uint16_t
 {
 	// Emissive, ambient, and diffuse colors are all specified by the niMaterialProperty. In other words, vertex colors aren't used.
 	SourceIgnore = 0,
@@ -27,7 +27,7 @@ enum class VertexMode : uint16_t
 // Property of vertex colors.
 // This object is referred to by the root object of the NIF file whenever some NiTriShapeData object has vertex colors with non-default settings; 
 // if not present, vertex colors have vertex_mode=2 and lighting_mode=1. 
-struct NiVertexColorProperty : NiProperty
+struct NIFORGE_API NiVertexColorProperty : NiProperty
 {
 private: 
 	uint16_t flags;

@@ -2,7 +2,7 @@
 #include <initializer_list>
 
 template <std::size_t Rows, std::size_t Cols, typename T = float>
-struct Matrix
+struct NIFORGE_API Matrix
 {
 	T m[Cols][Rows];
 

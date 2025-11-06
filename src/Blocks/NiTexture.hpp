@@ -5,7 +5,7 @@
 #include <cstdint>
 
 // Describes the color depth in an NiTexture. 
-enum class PixelLayout : uint32_t
+enum class NIFORGE_API PixelLayout : uint32_t
 {
     PX_LAY_PALETTIZED_8 = 0,   // Texture is in 8-bit palettized format.
     PX_LAY_HIGH_COLOR_16 = 1,  // Texture is in 16-bit high color format.
@@ -27,7 +27,7 @@ enum class PixelLayout : uint32_t
 };
 
 // Describes how mipmaps are handled in an NiTexture. 
-enum class MipMapFormat : uint32_t
+enum class NIFORGE_API MipMapFormat : uint32_t
 {
     NO = 0,       // Texture does not use mip maps.
     YES = 1,      // Texture uses mip maps.
@@ -35,7 +35,7 @@ enum class MipMapFormat : uint32_t
 };
 
 // Describes how transparency (alpha) is handled in an NiTexture.
-enum class AlphaFormat : uint32_t
+enum class NIFORGE_API AlphaFormat : uint32_t
 {
     NONE = 0,     // No alpha.
     BINARY = 1,   // 1-bit alpha.
@@ -44,7 +44,7 @@ enum class AlphaFormat : uint32_t
 };
 
 // NiTexture::FormatPrefs. These preferences are a request to the renderer to use a format the most closely matches the settings and may be ignored. 
-struct FormatPrefs
+struct NIFORGE_API FormatPrefs
 {
 	PixelLayout pixelLayout; // Requests the way the image will be stored.
     MipMapFormat useMipMaps; // Requests if mipmaps are used or not.
@@ -58,7 +58,7 @@ struct FormatPrefs
 	}
 };
 
-struct NiTexture : NiObjectNet
+struct NIFORGE_API NiTexture : NiObjectNet
 {
     // Forwarding constructor so derived classes can initialize the NiObjectNet base.
     NiTexture(Reader& reader, const NiHeader& header)

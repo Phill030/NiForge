@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <vector>
 
-struct NiNode : NiAvObject
+struct NIFORGE_API NiNode : NiAvObject
 {
 public:
 	uint32_t numChildren;

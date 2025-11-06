@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-struct NiVersion
+struct NIFORGE_API NiVersion
 {
 	uint8_t major;
 	uint8_t minor;

@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <string>
 
-struct NiFloatData : NiObject
+struct NIFORGE_API NiFloatData : NiObject
 {
 public:
 	KeyGroup<float> data;

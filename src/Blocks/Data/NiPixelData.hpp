@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <vector>
 
-struct NiPixelData : NiPixelFormat
+struct NIFORGE_API NiPixelData : NiPixelFormat
 {
 public:
 	Ref<NiPalette> palette;

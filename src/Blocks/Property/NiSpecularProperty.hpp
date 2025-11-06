@@ -4,7 +4,7 @@
 #include "NiProperty.hpp"
 #include <cstdint>
 
-struct NiSpecularProperty : NiProperty
+struct NIFORGE_API NiSpecularProperty : NiProperty
 {
 	uint16_t flags;
 	NiSpecularProperty(Reader& reader, const NiHeader& header) : NiProperty(reader, header) {

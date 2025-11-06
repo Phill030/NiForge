@@ -4,7 +4,7 @@
 #include "NiProperty.hpp"
 #include <cstdint>
 
-struct NiAlphaProperty : NiProperty
+struct NIFORGE_API NiAlphaProperty : NiProperty
 {
 public:
 	uint16_t flags;

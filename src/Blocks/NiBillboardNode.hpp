@@ -4,7 +4,7 @@
 #include "NiNode.hpp"
 #include <cstdint>
 
-enum class BillboardMode : uint16_t
+enum class NIFORGE_API BillboardMode : uint16_t
 {
     ALWAYS_FACE_CAMERA = 0,  // Align billboard and camera forward vector. Minimized rotation.
     ROTATE_ABOUT_UP = 1,  // Align billboard and camera forward vector while allowing rotation around the up axis.
@@ -17,7 +17,7 @@ enum class BillboardMode : uint16_t
 
 // Determines the way the billboard will react to the camera.
 // Billboard mode is stored in lowest 3 bits although Oblivion vanilla nifs uses values higher than 7.
-struct NiBillboardNode : NiNode
+struct NIFORGE_API NiBillboardNode : NiNode
 {
 public:
     BillboardMode billboardMode;

@@ -3,7 +3,7 @@
 #include "Core/NiHeader.hpp"
 #include "Reader.hpp"
 
-struct NiBound
+struct NIFORGE_API NiBound
 {
 	Vector3 center; // The sphere's center.
 	float radius; // The sphere's radius.

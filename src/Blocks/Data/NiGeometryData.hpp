@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <vector>
 
-enum class VectorFlags : uint16_t
+enum class NIFORGE_API VectorFlags : uint16_t
 {
     VF_UV_1 = 0x0001,
     VF_UV_2 = 0x0002,
@@ -47,14 +47,14 @@ inline VectorFlags& operator|=(VectorFlags& a, VectorFlags b) {
 
 // Used by NiGeometryData to control the volatility of the mesh.
 // Consistency Type is masked to only the upper 4 bits(0xF000).Dirty mask is the lower 12 (0x0FFF) but only used at runtime.
-enum class ConsistencyType : uint16_t
+enum class NIFORGE_API ConsistencyType : uint16_t
 {
     MUTABLE = 0x0000,
     STATIC = 0x4000,
     VOLATILE = 0x8000
 };
 
-struct NiGeometryData : NiObject
+struct NIFORGE_API NiGeometryData : NiObject
 {
 public:
 	int32_t groupId;

@@ -5,7 +5,7 @@
 #include <cstdint>
 
 //NiPalette objects represent mappings from 8-bit indices to 24-bit RGB or 32-bit RGBA colors. 
-struct NiPalette : NiObject
+struct NIFORGE_API NiPalette : NiObject
 {
 	uint8_t hasAlpha;
 	uint32_t numEntries;

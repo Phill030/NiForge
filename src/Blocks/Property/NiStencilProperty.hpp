@@ -12,7 +12,7 @@ Bits 7-9: Pass Action
 Bits 10-11: Draw Mode
 Bits 12-14: Stencil Function
 */
-struct NiStencilProperty : NiProperty
+struct NIFORGE_API NiStencilProperty : NiProperty
 {
 	uint16_t flags;
 	uint32_t stencilRef;

@@ -5,7 +5,7 @@
 #include <vector>
 
 /// Describes the pixel component used by the NiPixelData object to store a texture.
-enum class PixelComponent : uint32_t
+enum class NIFORGE_API PixelComponent : uint32_t
 {
     PX_COMP_RED = 0,          ///< Red color component.
     PX_COMP_GREEN = 1,        ///< Green color component.
@@ -30,7 +30,7 @@ enum class PixelComponent : uint32_t
 };
 
 /// Describes how each pixel should be accessed on NiPixelFormat.
-enum class PixelRepresentation : uint32_t
+enum class NIFORGE_API PixelRepresentation : uint32_t
 {
     PX_REP_NORM_INT = 0, ///< Normalized integer representation.
     PX_REP_HALF = 1, ///< 16-bit half-precision floating point.
@@ -41,7 +41,7 @@ enum class PixelRepresentation : uint32_t
     PX_REP_INT = 6  ///< Unnormalized integer representation.
 };
 
-struct PixelFormatComponent
+struct NIFORGE_API PixelFormatComponent
 {
 public:
     PixelComponent type;
@@ -60,7 +60,7 @@ public:
 
 
 /// Describes the pixel format used by NiPixelData to store a texture.
-enum class PixelFormat : uint32_t
+enum class NIFORGE_API PixelFormat : uint32_t
 {
     PX_FMT_RGB = 0,           ///< 24-bit RGB. 8 bits per red, blue, and green component.
     PX_FMT_RGBA = 1,          ///< 32-bit RGB with alpha. 8 bits per red, blue, green, and alpha component.
@@ -83,7 +83,7 @@ enum class PixelFormat : uint32_t
 
 /// Describes whether pixels have been tiled from their standard row-major format
 /// to a format optimized for a particular platform.
-enum class PixelTiling : uint32_t
+enum class NIFORGE_API PixelTiling : uint32_t
 {
     PX_TILE_NONE = 0,        ///< Standard row-major format (no tiling).
     PX_TILE_XENON = 1,       ///< Xbox 360 (Xenon) optimized tiling.
@@ -91,7 +91,7 @@ enum class PixelTiling : uint32_t
     PX_TILE_NV_SWIZZLED = 3  ///< NVIDIA swizzled format.
 };
 
-struct NiPixelFormat : NiObject
+struct NIFORGE_API NiPixelFormat : NiObject
 {
 public:
     PixelFormat pixelFormat; // The format of the pixels in this internally stored image.

@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <vector>
 
-struct NiIntegersExtraData : NiExtraData
+struct NIFORGE_API NiIntegersExtraData : NiExtraData
 {
 public:
 	uint32_t numIntegers;

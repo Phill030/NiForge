@@ -1,6 +1,6 @@
 #pragma once
 
-struct Color3
+struct NIFORGE_API Color3
 {
 	float r, g, b;
 	Color3() : r(0), g(0), b(0) {}

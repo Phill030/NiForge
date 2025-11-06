@@ -1,7 +1,7 @@
 #pragma once
 
 template<typename T>
-struct Key
+struct NIFORGE_API Key
 {
 	T time;
 	T value;
