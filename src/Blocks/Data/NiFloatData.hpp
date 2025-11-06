@@ -1,11 +1,12 @@
 #pragma once
+#include "Blocks/NiObject.hpp"
 #include "Core/NiHeader.hpp"
 #include "Reader.hpp"
 #include "Types/Key.hpp"
 #include "Types/KeyGroup.hpp"
-#include "Blocks/NiObject.hpp"
 #include <cstdint>
-#include <cstdio>
+#include <stdexcept>
+#include <string>
 
 struct NiFloatData : NiObject
 {
@@ -16,7 +17,7 @@ public:
 		data.interpolation = static_cast<KeyType>(reader.read<uint32_t>());
 
 		data.keys.reserve(data.numKeys);
-		for (uint32_t i = 0; i < data.numKeys; i++) {
+		for (size_t i = 0; i < data.numKeys; i++) {
 			Key<float> key;
 
 			switch (data.interpolation) {
@@ -33,8 +34,7 @@ public:
 					break;
 
 				default:
-					printf("============== Unknown KeyType in NiFloatData: %u\n", static_cast<uint32_t>(data.interpolation));
-					break;
+					throw std::runtime_error("Unknown KeyType in NiFloatData: " + std::to_string(static_cast<uint32_t>(data.interpolation)));
 			}
 
 			data.keys.push_back(key);
