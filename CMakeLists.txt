@@ -105,8 +105,7 @@ set(SOURCE_FILES
 
 add_library(${PROJECT_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 # TESTS
 include(FetchContent)
@@ -145,5 +144,6 @@ add_custom_command(TARGET NiForgeTests POST_BUILD
 target_link_libraries(NiForgeTests PRIVATE NiForge gtest_main)
 include(GoogleTest)
 gtest_discover_tests(NiForgeTests)
+target_include_directories(NiForgeTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 #END TESTS
