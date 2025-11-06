@@ -4,7 +4,7 @@
 #include "Reader.hpp"
 #include "Core/NiHeader.hpp"
 
-enum LightningMode : uint32_t
+enum class LightningMode : uint32_t
 {
 	// Only the emissive component of the lighting equation is used. No dynamic lights are considered in the lighting process
 	LIGHTING_E = 0,
@@ -12,7 +12,7 @@ enum LightningMode : uint32_t
 	LIGHTING_E_A_D = 1,
 };
 
-enum VertexMode : uint16_t
+enum class VertexMode : uint16_t
 {
 	// Emissive, ambient, and diffuse colors are all specified by the niMaterialProperty. In other words, vertex colors aren't used.
 	SourceIgnore = 0,
