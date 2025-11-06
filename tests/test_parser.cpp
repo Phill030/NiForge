@@ -27,7 +27,7 @@ TEST(ReadFileTest, CanReadFile) {
     if (!file.read(reinterpret_cast<char*>(buffer.data()), size))
         throw std::runtime_error("Failed to read file: " + testFilePath);
 
-	SUCCEED();
+    SUCCEED();
 }
 
 TEST(ParseFile, CanParseFile) {
@@ -44,7 +44,7 @@ TEST(ParseFile, CanParseFile) {
     std::vector<uint8_t> buffer(size);
     if (!file.read(reinterpret_cast<char*>(buffer.data()), size))
         throw std::runtime_error("Failed to read file: " + testFilePath);
-    
+
     NiFile niFile(buffer);
 
     SUCCEED();
