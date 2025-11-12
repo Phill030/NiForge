@@ -18,14 +18,14 @@ public:
 	NiNode(Reader& reader, const NiHeader& header) : NiAvObject(reader, header)  {
 		numChildren = reader.read<uint32_t>();
 		children.reserve(numChildren);
-		for (int j = 0; j < numChildren; j++) {
-			children.push_back(Ref<NiAvObject>(reader));
+		for (uint32_t j = 0; j < numChildren; j++) {
+			children.emplace_back(reader);
 		}
 
 		numEffects = reader.read<uint32_t>();
 		effects.reserve(numEffects);
-		for (int j = 0; j < numEffects; j++) {
-			effects.push_back(Ref<NiDynamicEffect>(reader));
+		for (uint32_t j = 0; j < numEffects; j++) {
+			effects.emplace_back(reader);
 		}
 	}
 };

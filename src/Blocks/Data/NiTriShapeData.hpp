@@ -22,14 +22,14 @@ struct NIFORGE_API NiTriShapeData : NiTriBasedGeomData
         hasTriangles = reader.read<bool>();
         if (hasTriangles) {
             triangles.reserve(numTriangles);
-            for (int i = 0; i < numTriangles; i++) {
+            for (uint16_t i = 0; i < numTriangles; i++) {
                 triangles.push_back(reader.read<Triangle>());
             }
         }
 
         numMatchGroups = reader.read<uint16_t>();
         matchGroups.reserve(numMatchGroups);
-        for (size_t i = 0; i < numMatchGroups; i++) {
+        for (uint16_t i = 0; i < numMatchGroups; i++) {
             matchGroups.push_back(reader.read<MatchGroup>());
         }
     }

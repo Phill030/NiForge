@@ -25,8 +25,8 @@ public:
 
 	NiFile(const NiFile&) = delete;
 	NiFile& operator=(const NiFile&) = delete;
-	NiFile& operator=(NiFile&&) = default;
-	NiFile(NiFile&&) = default;
+	NiFile& operator=(NiFile&&) noexcept = default;
+	NiFile(NiFile&&) noexcept = default;
 
     template<typename T>
     std::vector<T*> getBlocksOfType() const {

@@ -97,7 +97,7 @@ public:
 		numShaderTextures = reader.read<uint32_t>();
 		shaderTextures.reserve(numShaderTextures);
 		for (uint32_t i = 0; i < numShaderTextures; i++) {
-			shaderTextures.push_back(ShaderTexDesc(reader, header));
+			shaderTextures.emplace_back(reader, header);
 		}
 	}
 };
