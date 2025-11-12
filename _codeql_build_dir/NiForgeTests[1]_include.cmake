@@ -1,0 +1,5 @@
+if(EXISTS "/home/runner/work/NiForge/NiForge/_codeql_build_dir/NiForgeTests[1]_tests.cmake")
+  include("/home/runner/work/NiForge/NiForge/_codeql_build_dir/NiForgeTests[1]_tests.cmake")
+else()
+  add_test(NiForgeTests_NOT_BUILT NiForgeTests_NOT_BUILT)
+endif()

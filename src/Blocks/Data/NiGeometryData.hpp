@@ -88,7 +88,7 @@ public:
 		hasVertices = reader.read<bool>();
         if (hasVertices) {
             vertices.reserve(numVertices);
-            for (int i = 0; i < numVertices; i++) {
+            for (uint16_t i = 0; i < numVertices; i++) {
                 vertices.push_back(reader.read<Vector3>());
             }
         }
@@ -98,7 +98,7 @@ public:
         hasNormals = reader.read<bool>();
         if (hasNormals) {
             normals.reserve(numVertices);
-            for (int i = 0; i < numVertices; i++) {
+            for (uint16_t i = 0; i < numVertices; i++) {
                 normals.push_back(reader.read<Vector3>());
             }
         }
@@ -109,7 +109,7 @@ public:
 
 		hasVertexColors = reader.read<bool>();
 
-        for (size_t i = 0; i < numVertices; i++) {
+        for (uint16_t i = 0; i < numVertices; i++) {
 			uvSets.push_back(reader.read<TexCoord>());
         }
 

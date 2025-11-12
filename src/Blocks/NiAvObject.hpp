@@ -27,7 +27,7 @@ struct NIFORGE_API NiAvObject : NiObjectNet
 		numProperties = reader.read<uint32_t>();
 
 		properties.reserve(numProperties);
-		for (int j = 0; j < numProperties; j++) {
+		for (uint32_t j = 0; j < numProperties; j++) {
 			properties.push_back(reader.read<uint32_t>());
 		}
 

@@ -41,29 +41,30 @@ struct NIFORGE_API NiHeader
 		numBlockTypes = reader.read<uint16_t>();
 
 		blockTypes.reserve(numBlockTypes);
-		for (int i = 0; i < numBlockTypes; i++) {
-			std::string name = reader.readString();
-			blockTypes.push_back(name);
+		for (uint16_t i = 0; i < numBlockTypes; i++) {
+			blockTypes.emplace_back(reader.readString());
 		}
 
 		blockTypeIndex.reserve(numBlocks);
-		for (int i = 0; i < numBlocks; i++) {
+		for (uint32_t i = 0; i < numBlocks; i++) {
 			blockTypeIndex.push_back(reader.read<uint16_t>());
 		}
 
 		blockSize.reserve(numBlocks);
-		for (int i = 0; i < numBlocks; i++) {
+		for (uint32_t i = 0; i < numBlocks; i++) {
 			blockSize.push_back(reader.read<uint32_t>());
 		}
 
-		strings.reserve(reader.read<uint32_t>());
+		uint32_t numStrings = reader.read<uint32_t>();
+		strings.reserve(numStrings);
 		maxStringLength = reader.read<uint32_t>();
-		for (int i = 0; i < strings.capacity(); i++) {
-			strings.push_back(reader.readString());
+		for (uint32_t i = 0; i < numStrings; i++) {
+			strings.emplace_back(reader.readString());
 		}
 
-		groups.reserve(reader.read<uint32_t>());
-		for (int i = 0; i < groups.capacity(); i++) {
+		uint32_t numGroups = reader.read<uint32_t>();
+		groups.reserve(numGroups);
+		for (uint32_t i = 0; i < numGroups; i++) {
 			groups.push_back(reader.read<uint32_t>());
 		}
 	}

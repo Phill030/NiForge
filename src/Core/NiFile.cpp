@@ -44,6 +44,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -61,17 +62,17 @@ void addStreamValue(std::vector<std::unique_ptr<DataStreamData>>& streams, const
     streams.push_back(std::move(new_stream));
 }
 
-std::string getReadableText(const std::string& input) {
-    std::string result;
+std::string_view getReadableText(const std::string& input) {
+    size_t len = 0;
     for (unsigned char c : input) {
         if (!isprint(c))
             break;
-        result += c;
+        len++;
     }
-    return result;
+    return std::string_view(input.data(), len);
 }
 
-static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
+static const std::unordered_map<std::string_view, std::function<std::shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
             {"NiNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiNode>(r, h); }},
             {"NiZBufferProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiZBufferProperty>(r, h); }},
             {"NiVertexColorProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiVertexColorProperty>(r, h); }},
@@ -99,17 +100,18 @@ static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObj
 };
 
 void NiFile::parseBlocks() {
+    blocks.reserve(header.numBlocks);  // Pre-allocate to avoid reallocations
     for (uint32_t i = 0; i < header.numBlocks; ++i) {
-        std::string blockType = getReadableText(header.blockTypes[header.blockTypeIndex[i]]);
+        std::string_view blockType = getReadableText(header.blockTypes[header.blockTypeIndex[i]]);
 
-        printf("Current index: %u, blockType: %s\n", i, blockType.c_str());
+        printf("Current index: %u, blockType: %.*s\n", i, static_cast<int>(blockType.length()), blockType.data());
 
         auto it = factories.find(blockType);
         if (it != factories.end()) {
             blocks.push_back(it->second(reader, header));
         }
         else {
-            printf("Unknown block type: %s\n", blockType.c_str());
+            printf("Unknown block type: %.*s\n", static_cast<int>(blockType.length()), blockType.data());
             uint32_t blockSize = header.blockSize[i];
             reader.read(blockSize);
         }
@@ -117,46 +119,48 @@ void NiFile::parseBlocks() {
 }
 
 void NiFile::parseDataStreams() {
-    for (auto& block : blocks) {
+    for (const auto& block : blocks) {
         if (!block) {
             printf("Null block encountered!\n");
             continue;
         }
 
-        if (const auto& niMesh = dynamic_pointer_cast<NiMesh>(block)) {
-            for (const auto& dataStreamRef : niMesh->dataStreams) {
-                auto dataStream = dataStreamRef.stream.getReference(*this);
-                if (dataStream == nullptr) continue;
+        auto* niMesh = dynamic_cast<NiMesh*>(block.get());
+        if (!niMesh) continue;
 
-                for (const auto& semantic : dataStreamRef.componentSemantics) {
-                    Reader r(dataStream->data);
+        for (const auto& dataStreamRef : niMesh->dataStreams) {
+            auto dataStream = dataStreamRef.stream.getReference(*this);
+            if (dataStream == nullptr) continue;
 
-                    if (semantic.name == "POSITION") {
-                        while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
-                            addStreamValue<DataStreamPosition>(dataStream->semanticData, r.read<Vector3>());
-                        }
+            for (const auto& semantic : dataStreamRef.componentSemantics) {
+                Reader r(dataStream->data);
+                std::string_view semanticName = semantic.name;
+
+                if (semanticName == "POSITION") {
+                    while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
+                        addStreamValue<DataStreamPosition>(dataStream->semanticData, r.read<Vector3>());
                     }
-                    else if (semantic.name == "NORMAL") {
-                        while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
-                            addStreamValue<DataStreamNormal>(dataStream->semanticData, r.read<Vector3>());
-                        }
-                    }
-                    else if (semantic.name == "TEXCOORD") {
-                        while (r.tell() + sizeof(TexCoord) <= dataStream->numBytes) {
-                            addStreamValue<DataStreamTexCoord>(dataStream->semanticData, r.read<TexCoord>());
-                        }
-                    }
-                    else if (semantic.name == "COLOR") {
-                        while (r.tell() + sizeof(Color4) <= dataStream->numBytes) {
-                            addStreamValue<DataStreamColor>(dataStream->semanticData, r.read<Color4>());
-                        }
-                    }
-                    else if (semantic.name == "INDEX") {
-                        while (r.tell() + sizeof(uint16_t) <= dataStream->numBytes) {
-                            addStreamValue<DataStreamIndex>(dataStream->semanticData, r.read<uint16_t>());
-                        }
-                    } // TOOD: implement rest
                 }
+                else if (semanticName == "NORMAL") {
+                    while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
+                        addStreamValue<DataStreamNormal>(dataStream->semanticData, r.read<Vector3>());
+                    }
+                }
+                else if (semanticName == "TEXCOORD") {
+                    while (r.tell() + sizeof(TexCoord) <= dataStream->numBytes) {
+                        addStreamValue<DataStreamTexCoord>(dataStream->semanticData, r.read<TexCoord>());
+                    }
+                }
+                else if (semanticName == "COLOR") {
+                    while (r.tell() + sizeof(Color4) <= dataStream->numBytes) {
+                        addStreamValue<DataStreamColor>(dataStream->semanticData, r.read<Color4>());
+                    }
+                }
+                else if (semanticName == "INDEX") {
+                    while (r.tell() + sizeof(uint16_t) <= dataStream->numBytes) {
+                        addStreamValue<DataStreamIndex>(dataStream->semanticData, r.read<uint16_t>());
+                    }
+                } // TOOD: implement rest
             }
         }
     }

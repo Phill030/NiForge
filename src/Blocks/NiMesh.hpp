@@ -39,12 +39,12 @@ public:
 		bound = NiBound(reader, header);
         numDataStreams = reader.read<uint32_t>();
 		dataStreams.reserve(numDataStreams);
-        for (int i = 0; i < numDataStreams; i++) {
-            dataStreams.push_back(DataStreamRef(reader, header));
+        for (uint32_t i = 0; i < numDataStreams; i++) {
+            dataStreams.emplace_back(reader, header);
 		}
 		numModifiers = reader.read<uint32_t>();
         modifiers.reserve(numModifiers);
-        for (int i = 0; i < numModifiers; i++) {
+        for (uint32_t i = 0; i < numModifiers; i++) {
             modifiers.push_back(reader.read<int32_t>());
         }
     }

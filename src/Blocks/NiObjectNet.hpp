@@ -20,8 +20,8 @@ struct NIFORGE_API NiObjectNet : NiObject
 
 		uint32_t numExtraData = reader.read<uint32_t>();
 		extraData.reserve(numExtraData);
-		for (int j = 0; j < numExtraData; j++) {
-			extraData.push_back(Ref<NiExtraData>(reader));
+		for (uint32_t j = 0; j < numExtraData; j++) {
+			extraData.emplace_back(reader);
 		}
 
 		controller = reader.read<int32_t>();

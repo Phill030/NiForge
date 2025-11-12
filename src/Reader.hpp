@@ -8,6 +8,7 @@
 #include "Types/TexCoord.hpp"
 #include "Types/Triangle.hpp"
 #include "Types/Vector3.hpp"
+#include <cstring>
 #include <string>
 #include <vector>
 
