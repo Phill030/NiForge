@@ -29,10 +29,11 @@ public:
 	NiFile(NiFile&&) = default;
 
     template<typename T>
-    std::vector<T*> getBlocksOfType() {
+    std::vector<T*> getBlocksOfType() const {
         static_assert(std::is_base_of_v<NiObject, T>, "T must derive from NiObject");
 
         std::vector<T*> result;
+        result.reserve(blocks.size() / 4);  // Reserve some space (heuristic)
 
         for (const auto& obj : blocks) {
             if (auto* casted = dynamic_cast<T*>(obj.get())) {
@@ -43,8 +44,9 @@ public:
         return result;
     }
 
-    std::vector<std::shared_ptr<NiNode>> getRootNodes() {
+    std::vector<std::shared_ptr<NiNode>> getRootNodes() const {
         std::vector<std::shared_ptr<NiNode>> roots;
+        roots.reserve(blocks.size() / 10);  // Reserve some space (heuristic)
 
         for (const auto& block : blocks) {
             if (auto node = dynamic_pointer_cast<NiNode>(block)) {
