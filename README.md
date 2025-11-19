@@ -35,7 +35,7 @@
 - A C++ 20 compatible compiler (eg. MSVC, GCC, Clang).
 - CMake 3.20 or later.
 
-### Installation
+### Installation & Building
 To integrate NiForge into your project, you can use CMake's FetchContent to download and build it automatically.
 ```cmake
 include(FetchContent)
@@ -51,9 +51,6 @@ FetchContent_MakeAvailable(niforge)
 # Link against NiForge
 target_link_libraries(${PROJECT_NAME} PRIVATE niforge)
 ```
-
-### Building
-
 ---
 
 ## Usage
