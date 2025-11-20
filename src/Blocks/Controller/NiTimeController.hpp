@@ -13,7 +13,7 @@ struct NIFORGE_API NiTimeController : NiObject
 	float phase;
 	float startTime;
 	float stopTime;
-	int32_t target; // Controller target (object index of the first controllable ancestor of this object).
+	int32_t target; // Ptr<NiObjectNET> !! Controller target (object index of the first controllable ancestor of this object).
 
 	NiTimeController(Reader& reader)
 		: NiObject()
