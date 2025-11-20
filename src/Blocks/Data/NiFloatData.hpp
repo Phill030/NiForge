@@ -10,7 +10,6 @@
 
 struct NIFORGE_API NiFloatData : NiObject
 {
-public:
 	KeyGroup<float> data;
 	NiFloatData(Reader& reader, const NiHeader& header) : NiObject() {
 		data.numKeys = reader.read<uint32_t>();
