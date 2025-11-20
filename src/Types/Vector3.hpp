@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <format>
+#include <cmath>
 
 struct NIFORGE_API Vector3
 {

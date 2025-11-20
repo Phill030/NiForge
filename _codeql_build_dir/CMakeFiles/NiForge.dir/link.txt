@@ -1,0 +1,1 @@
+/home/runner/work/NiForge/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -fPIC -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/NiForge.dir/link.d -shared -Wl,-soname,libNiForge.so -o lib/libNiForge.so CMakeFiles/NiForge.dir/src/Reader.cpp.o CMakeFiles/NiForge.dir/src/Core/NiFile.cpp.o

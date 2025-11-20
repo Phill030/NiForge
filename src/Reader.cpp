@@ -1,4 +1,3 @@
-#pragma once
 #include "Reader.hpp"
 #include <cstdint>
 #include <stdexcept>

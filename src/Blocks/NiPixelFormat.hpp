@@ -113,7 +113,7 @@ public:
 
 		channels.reserve(4);
         for (uint32_t i = 0; i < 4; i++) {
-            channels.push_back(PixelFormatComponent(reader));
+            channels.emplace_back(reader);
         }
     }
 };

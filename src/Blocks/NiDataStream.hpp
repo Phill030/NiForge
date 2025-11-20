@@ -191,14 +191,14 @@ public:
 
         numSubmeshes = reader.read<uint16_t>();
 		submeshToRegionMap.reserve(numSubmeshes);
-		for (int i = 0; i < numSubmeshes; i++) {
+		for (uint16_t i = 0; i < numSubmeshes; i++) {
 			submeshToRegionMap.push_back(reader.read<uint16_t>());
 		}
 
         numComponents = reader.read<uint32_t>();
 		componentSemantics.reserve(numComponents);
-        for (int i = 0; i < numComponents; i++) {
-            componentSemantics.push_back(SemanticData(reader, header));
+        for (uint32_t i = 0; i < numComponents; i++) {
+            componentSemantics.emplace_back(reader, header);
         }
     }
 };
