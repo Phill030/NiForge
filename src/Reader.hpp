@@ -9,6 +9,7 @@
 #include "Types/Triangle.hpp"
 #include "Types/Vector3.hpp"
 #include "Types/Quaternion.hpp"
+#include "Types/NiQuatTransform.hpp"
 #include <string>
 #include <vector>
 
@@ -87,6 +88,14 @@ template<> inline MipMap Reader::read<MipMap>() {
 
 template<> inline Quaternion Reader::read<Quaternion>() {
 	return { read<float>(), read<float>(), read<float>(), read<float>() };
+}
+
+template<> inline NiQuatTransform Reader::read<NiQuatTransform>() {
+	NiQuatTransform transform;
+	transform.translation = read<Vector3>();
+	transform.rotation = read<Quaternion>();
+	transform.scale = read<float>();
+	return transform;
 }
 
 template<> inline MatchGroup Reader::read<MatchGroup>() {
