@@ -3,7 +3,7 @@
 #include "Reader.hpp"
 #include "NiHeader.hpp"
 
-struct NiTransformController : NiKeyframeController
+struct NIFORGE_API NiTransformController : NiKeyframeController
 {
 	NiTransformController(Reader& reader, const NiHeader& header) : NiKeyframeController(reader) {
 

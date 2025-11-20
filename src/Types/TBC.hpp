@@ -1,7 +1,7 @@
 #pragma once
 
 // Tension, bias, continuity. 
-struct TBC
+struct NIFORGE_API TBC
 {
 	float t; // Tension
 	float b; // Bias

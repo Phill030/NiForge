@@ -1,7 +1,7 @@
 #pragma once
 #include "NiSingleInterpController.hpp"
 
-struct NiKeyframeController : NiSingleInterpController
+struct NIFORGE_API NiKeyframeController : NiSingleInterpController
 {
 	NiKeyframeController(Reader& reader) : NiSingleInterpController(reader) {}
 };

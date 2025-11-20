@@ -3,7 +3,7 @@
 #include "Reader.hpp"
 #include "NiHeader.hpp"
 
-struct NiTransformData : NiKeyframeData
+struct NIFORGE_API NiTransformData : NiKeyframeData
 {
 	NiTransformData(Reader& reader, const NiHeader& header) : NiKeyframeData(reader, header) {}
 };

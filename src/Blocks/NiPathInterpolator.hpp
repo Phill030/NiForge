@@ -5,7 +5,7 @@
 #include "Types/Ref.hpp"
 #include <cstdint>
 
-enum class PathFlags : uint16_t
+enum class NIFORGE_API PathFlags : uint16_t
 {
     NIPI_CVDataNeedsUpdate = 0x0001,
     NIPI_CurveTypeOpen = 0x0002,
@@ -16,7 +16,7 @@ enum class PathFlags : uint16_t
     NIPI_Flip = 0x0040
 };
 
-struct NiPathInterpolator : NiKeyBasedInterpolator
+struct NIFORGE_API NiPathInterpolator : NiKeyBasedInterpolator
 {
     PathFlags flags;
     int32_t bankDir; // -1 = Negative, 1 = Positive

@@ -2,7 +2,7 @@
 #include "Types/Vector3.hpp"
 #include "Types/Quaternion.hpp"
 
-struct NiQuatTransform
+struct NIFORGE_API NiQuatTransform
 {
 	Vector3 translation;
 	Quaternion rotation;

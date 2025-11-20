@@ -2,7 +2,7 @@
 #include "Types/TBC.hpp"
 
 template <typename T>
-struct QuatKey
+struct NIFORGE_API QuatKey
 {
 	float time;
 	T value;
