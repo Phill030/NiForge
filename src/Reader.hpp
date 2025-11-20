@@ -8,6 +8,7 @@
 #include "Types/TexCoord.hpp"
 #include "Types/Triangle.hpp"
 #include "Types/Vector3.hpp"
+#include "Types/Quaternion.hpp"
 #include <string>
 #include <vector>
 
@@ -82,6 +83,10 @@ template<> inline TexCoord Reader::read<TexCoord>() {
 
 template<> inline MipMap Reader::read<MipMap>() {
 	return { read<uint32_t>(), read<uint32_t>(), read<uint32_t>() };
+}
+
+template<> inline Quaternion Reader::read<Quaternion>() {
+	return { read<float>(), read<float>(), read<float>(), read<float>() };
 }
 
 template<> inline MatchGroup Reader::read<MatchGroup>() {
