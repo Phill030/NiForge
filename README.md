@@ -42,8 +42,8 @@ include(FetchContent)
 
 FetchContent_Declare(
   niforge
-  GIT_REPOSITORY httpss://github.com/phill030/NiForge.git
-  GIT_TAG        main # Or a specific release tag
+  GIT_REPOSITORY https://github.com/phill030/NiForge.git
+  GIT_TAG        master # Or a specific release tag
 )
 
 FetchContent_MakeAvailable(niforge)
