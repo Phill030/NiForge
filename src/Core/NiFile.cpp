@@ -7,6 +7,8 @@
 #include "Blocks/Data/NiPixelData.hpp"
 #include "Blocks/Data/NiStringExtraData.hpp"
 #include "Blocks/Data/NiTriShapeData.hpp"
+#include "Blocks/Data/NiFloatExtraData.hpp"
+#include "Blocks/Data/NiTransformData.hpp"
 #include "Blocks/DataStreamData/DataStreamColor.hpp"
 #include "Blocks/DataStreamData/DataStreamData.hpp"
 #include "Blocks/DataStreamData/DataStreamIndex.hpp"
@@ -96,6 +98,9 @@ static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObj
             {"NiTriShapeData", [](Reader& r, NiHeader& h) { return std::make_shared<NiTriShapeData>(r, h); }},
             {"NiPixelData", [](Reader& r, NiHeader& h) { return std::make_shared<NiPixelData>(r, h); }},
             {"NiBoolData", [](Reader& r, NiHeader& h) { return std::make_shared<NiBoolData>(r, h); }},
+            {"NiFloatExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiFloatExtraData>(r, h); }},
+            {"NiTransformData", [](Reader& r, NiHeader& h) { return std::make_shared<NiTransformData>(r, h); }}
+            
 };
 
 void NiFile::parseBlocks() {
