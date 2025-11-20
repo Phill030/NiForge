@@ -11,6 +11,7 @@
 #include "Blocks/Data/NiFloatExtraData.hpp"
 #include "Blocks/Data/NiTransformData.hpp"
 #include "Blocks/Data/NiPosData.hpp"
+#include "Blocks/Data/NiBoolData.hpp"
 #include "Blocks/DataStreamData/DataStreamColor.hpp"
 #include "Blocks/DataStreamData/DataStreamData.hpp"
 #include "Blocks/DataStreamData/DataStreamIndex.hpp"
@@ -26,6 +27,7 @@
 #include "Blocks/NiSourceTexture.hpp"
 #include "Blocks/NiTriShape.hpp"
 #include "Blocks/NiTransformInterpolator.hpp"
+#include "Blocks/NiPathInterpolator.hpp"
 #include "Blocks/Property/NiAlphaProperty.hpp"
 #include "Blocks/Property/NiMaterialProperty.hpp"
 #include "Blocks/Property/NiSpecularProperty.hpp"
@@ -39,7 +41,6 @@
 #include "Types/Color4.hpp"
 #include "Types/TexCoord.hpp"
 #include "Types/Vector3.hpp"
-#include "Blocks/Data/NiBoolData.hpp"
 #include <cctype>
 #include <cstdint>
 #include <cstdio>
@@ -105,7 +106,8 @@ static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObj
             {"NiTransformData", [](Reader& r, NiHeader& h) { return std::make_shared<NiTransformData>(r, h); }},
             {"NiTransformController", [](Reader& r, NiHeader& h) { return std::make_shared<NiTransformController>(r, h); }},
             {"NiTransformInterpolator", [](Reader& r, NiHeader& h) { return std::make_shared<NiTransformInterpolator>(r, h); }},
-            {"NiPosData", [](Reader& r, NiHeader& h) { return std::make_shared<NiPosData>(r, h); }}
+            {"NiPosData", [](Reader& r, NiHeader& h) { return std::make_shared<NiPosData>(r, h); }},
+            {"NiPathInterpolator", [](Reader& r, NiHeader& h) { return std::make_shared<NiPathInterpolator>(r, h); }}
 };
 
 void NiFile::parseBlocks() {
