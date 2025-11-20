@@ -17,6 +17,8 @@ struct Ref
         value = reader.read<int32_t>();
     }
 
+	Ref() : value(-1) {}
+
     // Declare but don't define
     T* getReference(const NiFile& file) const;
 
