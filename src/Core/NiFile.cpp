@@ -114,16 +114,16 @@ void NiFile::parseBlocks() {
     for (uint32_t i = 0; i < header.numBlocks; ++i) {
         std::string blockType = getReadableText(header.blockTypes[header.blockTypeIndex[i]]);
 
-        printf("Current index: %u, blockType: %s\n", i, blockType.c_str());
-
+        //printf("Current index: %u, blockType: %s\n", i, blockType.c_str());
         auto it = factories.find(blockType);
         if (it != factories.end()) {
             blocks.push_back(it->second(reader, header));
         }
         else {
-            printf("Unknown block type: %s\n", blockType.c_str());
+            printf("Unknown block type at index %u: %s\n", i, blockType.c_str());
             uint32_t blockSize = header.blockSize[i];
             reader.read(blockSize);
+            blocks.push_back(nullptr); // Placeholder for unknown blocks
         }
     }
 }
@@ -131,7 +131,7 @@ void NiFile::parseBlocks() {
 void NiFile::parseDataStreams() {
     for (auto& block : blocks) {
         if (!block) {
-            printf("Null block encountered!\n");
+            printf("Null block encountered! (skipping)\n");
             continue;
         }
 
@@ -167,7 +167,12 @@ void NiFile::parseDataStreams() {
                         while (r.tell() + sizeof(uint16_t) <= dataStream->numBytes) {
                             addStreamValue<DataStreamIndex>(dataStream->semanticData, r.read<uint16_t>());
                         }
-                    } // TOOD: implement rest
+                    }
+                    else {
+                        // TOOD: implement rest
+						// Non-fatal: skip other semantics ('MORPH_POSITION', 'MORPHWEIGHTS', 'BONE_PALETTE', 'BLENDWEIGHT')
+                        //throw std::runtime_error("Unkonwn semantic name: "+semantic.name);
+                    }
                 }
             }
         }
