@@ -25,6 +25,7 @@
 #include "Blocks/NiNode.hpp"
 #include "Blocks/NiObject.hpp"
 #include "Blocks/NiSourceTexture.hpp"
+#include "Blocks/NiSortAdjustNode.hpp"
 #include "Blocks/NiTriShape.hpp"
 #include "Blocks/NiTransformInterpolator.hpp"
 #include "Blocks/NiPathInterpolator.hpp"
@@ -79,6 +80,7 @@ std::string getReadableText(const std::string& input) {
 
 static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
             {"NiNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiNode>(r, h); }},
+            {"NiSortAdjustNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiSortAdjustNode>(r, h); }},  
             {"NiZBufferProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiZBufferProperty>(r, h); }},
             {"NiVertexColorProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiVertexColorProperty>(r, h); }},
             {"NiMesh", [](Reader& r, NiHeader& h) { return std::make_shared<NiMesh>(r, h); }},

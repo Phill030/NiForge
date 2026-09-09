@@ -61,6 +61,8 @@ set(HEADER_FILES
     "src/Blocks/NiTexture.hpp"
     "src/Blocks/NiTriBasedGeom.hpp"
     "src/Blocks/NiTriShape.hpp"
+    "src/Blocks/NiSortAdjustNode.hpp"
+
 
     "src/Blocks/Controller/NiFloatInterpController.hpp"
     "src/Blocks/Controller/NiInterpController.hpp"
