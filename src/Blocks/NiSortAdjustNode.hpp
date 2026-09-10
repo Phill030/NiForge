@@ -1,6 +1,6 @@
 #pragma once
 #include "Core/NiHeader.hpp"
-#include "Blocks/NiNode.hpp"
+#include "NiNode.hpp"
 #include "Reader.hpp"
 #include <cstdint>
 
