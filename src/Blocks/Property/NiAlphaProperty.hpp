@@ -42,16 +42,10 @@ public:
 	}
 
 	bool alphaBlend() const { return (flags & 0x0001) != 0; }
-	
 	AlphaFunction srcBlend() const { return static_cast<AlphaFunction>((flags >> 1) & 0x0F); }
-
 	AlphaFunction destBlend() const { return static_cast<AlphaFunction>((flags >> 5) & 0x0F); }
-
 	bool alphaTest() const { return (flags & 0x0200) != 0; }
-	
 	TestFunction testFunc() const { return static_cast<TestFunction>((flags >> 10) & 0x07); }
-	
 	bool noSorter() const { return (flags & 0x2000) != 0; }
-	
 	float testThreshold() const { return static_cast<float>(threshold) / 255.0f; }
 };
