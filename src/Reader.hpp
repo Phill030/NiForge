@@ -29,6 +29,7 @@ struct NIFORGE_API Reader
 	std::string readString(size_t length);
 	std::string readString();
 	std::string readUntilNull();
+	Color4 readBGRA();
 
 	void seek(size_t newPos) { pos = newPos; }
 	size_t tell() const noexcept { return pos; }

@@ -142,8 +142,10 @@ void NiFile::parseDataStreams() {
             for (const auto& dataStreamRef : niMesh->dataStreams) {
                 auto dataStream = dataStreamRef.stream.getReference(*this);
                 if (dataStream == nullptr) continue;
+                if (!dataStream->semanticData.empty()) continue;
 
-                for (const auto& semantic : dataStreamRef.componentSemantics) {
+                for (size_t c = 0; c < dataStreamRef.componentSemantics.size(); ++c) {
+                    const auto& semantic = dataStreamRef.componentSemantics[c];
                     Reader r(dataStream->data);
 
                     if (semantic.name == "POSITION") {
@@ -162,8 +164,19 @@ void NiFile::parseDataStreams() {
                         }
                     }
                     else if (semantic.name == "COLOR") {
+                        bool isBgra = false;
+                        if (c < dataStream->componentFormats.size())
+                            isBgra = (dataStream->componentFormats[c] == ComponentFormat::F_NORMUINT8_4_BGRA);
+                        else if (!dataStream->componentFormats.empty())
+                            isBgra = (dataStream->componentFormats[0] == ComponentFormat::F_NORMUINT8_4_BGRA);
+
                         while (r.tell() + sizeof(Color4) <= dataStream->numBytes) {
-                            addStreamValue<DataStreamColor>(dataStream->semanticData, r.read<Color4>());
+                            if (isBgra) {
+                                addStreamValue<DataStreamColor>(dataStream->semanticData, r.readBGRA());
+                            }
+                            else {
+                                addStreamValue<DataStreamColor>(dataStream->semanticData, r.read<Color4>());
+                            }
                         }
                     }
                     else if (semantic.name == "INDEX") {
