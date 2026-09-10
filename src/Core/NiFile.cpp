@@ -148,12 +148,12 @@ void NiFile::parseDataStreams() {
                     const auto& semantic = dataStreamRef.componentSemantics[c];
                     Reader r(dataStream->data);
 
-                    if (semantic.name == "POSITION") {
+                    if (semantic.name == "POSITION" || semantic.name == "POSITION_BP") {
                         while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
                             addStreamValue<DataStreamPosition>(dataStream->semanticData, r.read<Vector3>());
                         }
                     }
-                    else if (semantic.name == "NORMAL") {
+                    else if (semantic.name == "NORMAL" || semantic.name == "NORMAL_BP") {
                         while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
                             addStreamValue<DataStreamNormal>(dataStream->semanticData, r.read<Vector3>());
                         }
@@ -191,7 +191,7 @@ void NiFile::parseDataStreams() {
                     }
                     else {
                         // TOOD: implement rest
-						// Non-fatal: skip other semantics ('MORPHWEIGHTS', 'BONE_PALETTE', 'BLENDWEIGHT')
+						// Non-fatal: skip other semantics ('MORPHWEIGHTS', 'BONE_PALETTE', 'BLENDWEIGHT', 'BLENDINDICES')
                         //throw std::runtime_error("Unkonwn semantic name: "+semantic.name);
                     }
                 }
