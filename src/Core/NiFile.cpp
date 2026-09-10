@@ -116,11 +116,20 @@ static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObj
 void NiFile::parseBlocks() {
     for (uint32_t i = 0; i < header.numBlocks; ++i) {
         std::string blockType = getReadableText(header.blockTypes[header.blockTypeIndex[i]]);
+        uint32_t expectedSize = header.blockSize[i];
+        size_t startPos = reader.tell();
 
         //printf("Current index: %u, blockType: %s\n", i, blockType.c_str());
         auto it = factories.find(blockType);
         if (it != factories.end()) {
-            blocks.push_back(it->second(reader, header));
+            try {
+                blocks.push_back(it->second(reader, header));
+            }
+            catch (const std::exception& e) {
+                printf("FATAL: Block %u (%s) threw: %s (startPos=%zu, curPos=%zu, expSize=%u)\n",
+                       i, blockType.c_str(), e.what(), startPos, reader.tell(), expectedSize);
+                throw;
+            }
         }
         else {
             printf("Unknown block type at index %u: %s\n", i, blockType.c_str());
@@ -170,12 +179,12 @@ void NiFile::parseDataStreams() {
                         else if (!dataStream->componentFormats.empty())
                             isBgra = (dataStream->componentFormats[0] == ComponentFormat::F_NORMUINT8_4_BGRA);
 
-                        while (r.tell() + sizeof(Color4) <= dataStream->numBytes) {
+                        while (r.tell() + sizeof(ByteColor4) <= dataStream->numBytes) {
                             if (isBgra) {
                                 addStreamValue<DataStreamColor>(dataStream->semanticData, r.readBGRA());
                             }
                             else {
-                                addStreamValue<DataStreamColor>(dataStream->semanticData, r.read<Color4>());
+                                addStreamValue<DataStreamColor>(dataStream->semanticData, r.read<ByteColor4>());
                             }
                         }
                     }

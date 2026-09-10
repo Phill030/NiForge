@@ -42,8 +42,8 @@ std::vector<uint8_t> Reader::read(uint32_t length) {
     return buf;
 }
 
-Color4 Reader::readBGRA() {
-    return Color4::BGRA(
+ByteColor4 Reader::readBGRA() {
+    return ByteColor4::BGRA(
         read<uint8_t>(),
         read<uint8_t>(),
         read<uint8_t>(),

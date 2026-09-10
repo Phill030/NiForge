@@ -1,5 +1,5 @@
 #pragma once
-#include "Types/Color4.hpp"
+#include "Types/ByteColor4.hpp"
 #include "Reader.hpp"
 #include "NiObject.hpp"
 #include <cstdint>
@@ -9,10 +9,10 @@ struct NIFORGE_API NiPalette : NiObject
 {
 	uint8_t hasAlpha;
 	uint32_t numEntries;
-	Color4 Palette;
+	ByteColor4 Palette;
 	NiPalette(Reader& reader) {
 		hasAlpha = reader.read<uint8_t>();
 		numEntries = reader.read<uint32_t>();
-		Palette = reader.read<Color4>();
+		Palette = reader.read<ByteColor4>();
 	}
 };

@@ -6,6 +6,7 @@
 #include "Blocks/NiObject.hpp"
 #include <cstdint>
 #include <vector>
+#include "Types/Color4.hpp"
 
 enum class NIFORGE_API VectorFlags : uint16_t
 {
@@ -74,6 +75,7 @@ public:
     float radius;
     
     bool hasVertexColors;
+    std::vector<Color4> vertexColors;
 
 	std::vector<TexCoord> uvSets;
 	ConsistencyType consistencyFlags;
@@ -106,11 +108,19 @@ public:
         center = reader.read<Vector3>();
         radius = reader.read<float>();
 
-
 		hasVertexColors = reader.read<bool>();
+        if (hasVertexColors) {
+            vertexColors.reserve(numVertices);
+            for (size_t i = 0; i < numVertices; ++i) {
+                vertexColors.push_back(reader.read<Color4>());
+            }
+        }
 
-        for (size_t i = 0; i < numVertices; i++) {
-			uvSets.push_back(reader.read<TexCoord>());
+        uint16_t numUVSets = static_cast<uint16_t>(vectorFlags) & 0x3F;
+        for (size_t u = 0; u < numUVSets; ++u) {
+            for (size_t i = 0; i < numVertices; ++i) {
+                uvSets.push_back(reader.read<TexCoord>());
+            }
         }
 
 		consistencyFlags = static_cast<ConsistencyType>(reader.read<uint16_t>());
