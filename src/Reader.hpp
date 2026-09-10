@@ -54,8 +54,8 @@ T Reader::read() {
 template<std::size_t N, std::size_t M, typename T>
 Matrix<N, M, T> Reader::readMatrix() {
 	Matrix<N, M, T> mat;
-	for (std::size_t col = 0; col < M; ++col) {
-		for (std::size_t row = 0; row < N; ++row) {
+	for (std::size_t row = 0; row < N; ++row) {
+		for (std::size_t col = 0; col < M; ++col) {
 			mat.m[col][row] = read<T>();
 		}
 	}
