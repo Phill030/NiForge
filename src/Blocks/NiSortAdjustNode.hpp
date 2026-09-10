@@ -20,4 +20,4 @@ public:
 	NiSortAdjustNode(Reader& reader, const NiHeader& header) : NiNode(reader, header) {
 		sortingMode = static_cast<SortingMode>(reader.read<uint32_t>());
 	}
-}
+};
