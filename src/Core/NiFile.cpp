@@ -18,6 +18,7 @@
 #include "Blocks/DataStreamData/DataStreamNormal.hpp"
 #include "Blocks/DataStreamData/DataStreamPosition.hpp"
 #include "Blocks/DataStreamData/DataStreamTexCoord.hpp"
+#include "Blocks/DataStreamData/DataStreamMorphPosition.hpp"
 #include "Blocks/NiBillboardNode.hpp"
 #include "Blocks/NiDataStream.hpp"
 #include "Blocks/NiFloatInterpolator.hpp"
@@ -170,9 +171,14 @@ void NiFile::parseDataStreams() {
                             addStreamValue<DataStreamIndex>(dataStream->semanticData, r.read<uint16_t>());
                         }
                     }
+                    else if (semantic.name == "MORPH_POSITION" && semantic.index == 0) {
+                        while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
+                            addStreamValue<DataStreamMorphPosition>(dataStream->semanticData, r.read<Vector3>());
+                        }
+                    }
                     else {
                         // TOOD: implement rest
-						// Non-fatal: skip other semantics ('MORPH_POSITION', 'MORPHWEIGHTS', 'BONE_PALETTE', 'BLENDWEIGHT')
+						// Non-fatal: skip other semantics ('MORPHWEIGHTS', 'BONE_PALETTE', 'BLENDWEIGHT')
                         //throw std::runtime_error("Unkonwn semantic name: "+semantic.name);
                     }
                 }

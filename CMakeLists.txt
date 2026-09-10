@@ -89,6 +89,7 @@ set(HEADER_FILES
     "src/Blocks/DataStreamData/DataStreamNormal.hpp"
     "src/Blocks/DataStreamData/DataStreamPosition.hpp"
     "src/Blocks/DataStreamData/DataStreamTexCoord.hpp"
+    "src/Blocks/DataStreamData/DataStreamMorphPosition.hpp"
 
     "src/Blocks/Property/NiAlphaProperty.hpp"
     "src/Blocks/Property/NiMaterialProperty.hpp"
