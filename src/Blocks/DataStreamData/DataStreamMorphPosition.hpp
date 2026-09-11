@@ -2,6 +2,7 @@
 #include "DataStreamData.hpp"
 #include "Types/Vector3.hpp"
 #include <vector>
+
 struct NIFORGE_API DataStreamMorphPosition : DataStreamData
 {
 	using value_type = Vector3;

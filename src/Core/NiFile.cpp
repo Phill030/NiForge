@@ -15,18 +15,18 @@
 #include "Blocks/DataStreamData/DataStreamColor.hpp"
 #include "Blocks/DataStreamData/DataStreamData.hpp"
 #include "Blocks/DataStreamData/DataStreamIndex.hpp"
+#include "Blocks/DataStreamData/DataStreamMorphPosition.hpp"
 #include "Blocks/DataStreamData/DataStreamNormal.hpp"
 #include "Blocks/DataStreamData/DataStreamPosition.hpp"
 #include "Blocks/DataStreamData/DataStreamTexCoord.hpp"
-#include "Blocks/DataStreamData/DataStreamMorphPosition.hpp"
 #include "Blocks/NiBillboardNode.hpp"
 #include "Blocks/NiDataStream.hpp"
 #include "Blocks/NiFloatInterpolator.hpp"
 #include "Blocks/NiMesh.hpp"
 #include "Blocks/NiNode.hpp"
 #include "Blocks/NiObject.hpp"
-#include "Blocks/NiSourceTexture.hpp"
 #include "Blocks/NiSortAdjustNode.hpp"
+#include "Blocks/NiSourceTexture.hpp"
 #include "Blocks/NiTriShape.hpp"
 #include "Blocks/NiTransformInterpolator.hpp"
 #include "Blocks/NiPathInterpolator.hpp"
@@ -81,7 +81,7 @@ std::string getReadableText(const std::string& input) {
 
 static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
             {"NiNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiNode>(r, h); }},
-            {"NiSortAdjustNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiSortAdjustNode>(r, h); }},  
+            {"NiSortAdjustNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiSortAdjustNode>(r, h); }},
             {"NiZBufferProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiZBufferProperty>(r, h); }},
             {"NiVertexColorProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiVertexColorProperty>(r, h); }},
             {"NiMesh", [](Reader& r, NiHeader& h) { return std::make_shared<NiMesh>(r, h); }},
@@ -130,12 +130,17 @@ void NiFile::parseBlocks() {
                        i, blockType.c_str(), e.what(), startPos, reader.tell(), expectedSize);
                 throw;
             }
+            size_t bytesRead = reader.tell() - startPos;
+            if (bytesRead != expectedSize) {
+                printf("DESYNC [%u] %s: read %zu, exp %u\n",
+                       i, blockType.c_str(), bytesRead, expectedSize);
+                reader.seek(startPos + expectedSize);
+            }
         }
         else {
-            printf("Unknown block type at index %u: %s\n", i, blockType.c_str());
-            uint32_t blockSize = header.blockSize[i];
-            reader.read(blockSize);
-            blocks.push_back(nullptr); // Placeholder for unknown blocks
+            // printf("Unknown block type at index %u: %s\n", i, blockType.c_str());
+            reader.read(expectedSize);
+            blocks.push_back(nullptr);
         }
     }
 }
@@ -143,7 +148,6 @@ void NiFile::parseBlocks() {
 void NiFile::parseDataStreams() {
     for (auto& block : blocks) {
         if (!block) {
-            printf("Null block encountered! (skipping)\n");
             continue;
         }
 
@@ -162,6 +166,11 @@ void NiFile::parseDataStreams() {
                             addStreamValue<DataStreamPosition>(dataStream->semanticData, r.read<Vector3>());
                         }
                     }
+                    else if (semantic.name == "MORPH_POSITION" && semantic.index == 0) {
+                        while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
+                            addStreamValue<DataStreamMorphPosition>(dataStream->semanticData, r.read<Vector3>());
+                        }
+                    }
                     else if (semantic.name == "NORMAL" || semantic.name == "NORMAL_BP") {
                         while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
                             addStreamValue<DataStreamNormal>(dataStream->semanticData, r.read<Vector3>());
@@ -174,13 +183,19 @@ void NiFile::parseDataStreams() {
                     }
                     else if (semantic.name == "COLOR") {
                         bool isBgra = false;
-                        if (c < dataStream->componentFormats.size())
+                        if (c < dataStream->componentFormats.size()) {
                             isBgra = (dataStream->componentFormats[c] == ComponentFormat::F_NORMUINT8_4_BGRA);
-                        else if (!dataStream->componentFormats.empty())
+                        }
+                        else if (!dataStream->componentFormats.empty()) {
                             isBgra = (dataStream->componentFormats[0] == ComponentFormat::F_NORMUINT8_4_BGRA);
+                        }
 
                         while (r.tell() + sizeof(ByteColor4) <= dataStream->numBytes) {
                             if (isBgra) {
+                                uint8_t b = r.read<uint8_t>();
+                                uint8_t g = r.read<uint8_t>();
+                                uint8_t red = r.read<uint8_t>();
+                                uint8_t a = r.read<uint8_t>();
                                 addStreamValue<DataStreamColor>(dataStream->semanticData, r.readBGRA());
                             }
                             else {
@@ -193,14 +208,9 @@ void NiFile::parseDataStreams() {
                             addStreamValue<DataStreamIndex>(dataStream->semanticData, r.read<uint16_t>());
                         }
                     }
-                    else if (semantic.name == "MORPH_POSITION" && semantic.index == 0) {
-                        while (r.tell() + sizeof(Vector3) <= dataStream->numBytes) {
-                            addStreamValue<DataStreamMorphPosition>(dataStream->semanticData, r.read<Vector3>());
-                        }
-                    }
                     else {
                         // TOOD: implement rest
-						// Non-fatal: skip other semantics ('MORPHWEIGHTS', 'BONE_PALETTE', 'BLENDWEIGHT', 'BLENDINDICES')
+                        // Non-fatal: skip other semantics ('MORPHWEIGHTS', 'BONE_PALETTE', 'BLENDWEIGHT', 'BLENDINDICES')
                         //throw std::runtime_error("Unkonwn semantic name: "+semantic.name);
                     }
                 }
@@ -210,7 +220,7 @@ void NiFile::parseDataStreams() {
 }
 
 NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) {
-	parseBlocks();
+    parseBlocks();
     parseDataStreams();
 }
 
@@ -227,8 +237,8 @@ NiFile::NiFile(const std::string& filePath) {
     if (!file.read(reinterpret_cast<char*>(buffer.data()), size))
         throw std::runtime_error("Failed to read file: " + filePath);
 
-	reader = Reader(buffer);
-	header = NiHeader(reader);
+    reader = Reader(buffer);
+    header = NiHeader(reader);
 
     parseBlocks();
     parseDataStreams();

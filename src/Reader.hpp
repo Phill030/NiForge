@@ -72,12 +72,12 @@ template<> inline Color3 Reader::read<Color3>() {
 	return { read<float>(), read<float>(), read<float>() };
 }
 
-template<> inline Color4 Reader::read<Color4>() {
-	return { read<float>(), read<float>(), read<float>(), read<float>() };
-}
-
 template<> inline ByteColor4 Reader::read<ByteColor4>() {
 	return { read<uint8_t>(), read<uint8_t>(), read<uint8_t>(), read<uint8_t>() };
+}
+
+template<> inline Color4 Reader::read<Color4>() {
+	return { read<float>(), read<float>(), read<float>(), read<float>() };
 }
 
 template<> inline Triangle Reader::read<Triangle>() {
