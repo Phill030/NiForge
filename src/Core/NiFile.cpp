@@ -192,10 +192,6 @@ void NiFile::parseDataStreams() {
 
                         while (r.tell() + sizeof(ByteColor4) <= dataStream->numBytes) {
                             if (isBgra) {
-                                uint8_t b = r.read<uint8_t>();
-                                uint8_t g = r.read<uint8_t>();
-                                uint8_t red = r.read<uint8_t>();
-                                uint8_t a = r.read<uint8_t>();
                                 addStreamValue<DataStreamColor>(dataStream->semanticData, r.readBGRA());
                             }
                             else {
