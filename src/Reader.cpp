@@ -49,3 +49,4 @@ ByteColor4 Reader::readBGRA() {
         read<uint8_t>(),
         read<uint8_t>()
     );
+}
