@@ -4,7 +4,7 @@
 
 <div align="center">
   <h1>NiForge</h1>
-  <p>A robust and efficient C++ library for parsing NetImmerse File (NIF) formats.</p>
+  <p>A robust and efficient C++ library for parsing NetImmerse / Gamebryo File (.nif) formats.</p>
   <div>
     <img src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey.svg?style=for-the-badge" alt="License">
     <a href="https://discord.gg/sMFgyNRDDM"><img src="https://img.shields.io/discord/940647911182729257?color=5865F2&label=Discord&logo=discord&logoColor=white&style=for-the-badge" alt="Discord"></a>
@@ -13,51 +13,180 @@
 
 ---
 ## Table of Contents
-- [Overview](#Overview)
-- [Features](#Features)
-- [Getting Started](#Getting-Started)
-- [Usage](#Usage)
-- [Contributing](#Contributing)
-- [License](#License)
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Integration Methods](#integration-methods)
+  - [Option 1: CMake FetchContent (Recommended)](#option-1-cmake-fetchcontent-recommended)
+  - [Option 2: Git Submodule or Subdirectory](#option-2-git-submodule-or-subdirectory)
+  - [Option 3: Pre-built Binaries (Imported Target)](#option-3-pre-built-binaries-imported-target)
+- [Usage Example](#usage-example)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
 ## Overview
+**NiForge** is a modern C++ library designed for parsing and working with NetImmerse and Gamebryo `.nif` files (specifically targeted and tested with Gamebryo 20.6 / Wizard101 assets). It provides:
+
+- Fast binary parsing directly from file paths or memory buffers.
+- Structured access to NIF headers, block lists, strings, and node hierarchies.
+- Type-safe block filtering (`getBlocksOfType<T>()`) and reference resolution (`Ref<T>`).
+- Full support for `NiMesh`, `NiTriShapeData`, vertex streams (positions, normals, colors, UVs), materials, texturing, and transforms.
 
 ---
 
-## Features
+## Prerequisites
+
+- **C++ Compiler**: A modern C++ compiler supporting at least **C++20** (MSVC 2019+, GCC 10+, or Clang 12+).
+- **CMake**: Version **3.20** or later.
 
 ---
+## Integration Methods
+Depending on your workflow and project structure, you can integrate NiForge in three different ways:
 
-## Getting Started
-### Prerequisites
-- A C++ 20 compatible compiler (eg. MSVC, GCC, Clang).
-- CMake 3.20 or later.
+### Option 1: CMake FetchContent (Recommended)
 
-### Installation & Building
-To integrate NiForge into your project, you can use CMake's FetchContent to download and build it automatically.
+Requires no manual cloning or submodules. CMake downloads, configures, and builds NiForge automatically at configure time.
+
 ```cmake
+cmake_minimum_required(VERSION 3.20)
+project(MyProject)
+
+# NiForge requires C++20 or newer
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 include(FetchContent)
 
 FetchContent_Declare(
-  niforge
-  GIT_REPOSITORY https://github.com/phill030/NiForge.git
-  GIT_TAG        master # Or a specific release tag
+    NiForge
+    GIT_REPOSITORY https://github.com/phill030/NiForge.git
+    GIT_TAG        master # Or specify a release tag / commit hash
 )
 
-FetchContent_MakeAvailable(niforge)
+FetchContent_MakeAvailable(NiForge)
 
-# Link against NiForge
-target_link_libraries(${PROJECT_NAME} PRIVATE niforge)
+# Define your application or library target
+add_executable(MyProject src/main.cpp)
+
+# Link against the NiForge target (automatically adds include directories)
+target_link_libraries(MyProject PRIVATE NiForge)
+
+# On Windows: NiForge builds as a shared library (DLL).
+# Copy NiForge.dll next to your executable automatically after build:
+if(WIN32)
+    add_custom_command(TARGET MyProject POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:NiForge>
+        $<TARGET_FILE_DIR:MyProject>
+    )
+endif()
 ```
----
-
-## Usage
 
 ---
 
-## Contributing
+### Option 2: Git Submodule or Subdirectory
+
+If you prefer vendoring dependencies directly inside your repository (e.g. in `external/NiForge` or `third_party/NiForge`):
+
+1. Add the submodule:
+   ```bash
+   git submodule add https://github.com/phill030/NiForge.git third_party/NiForge
+   ```
+
+2. Add it to your `CMakeLists.txt`:
+   ```cmake
+   cmake_minimum_required(VERSION 3.20)
+   project(MyProject)
+
+   set(CMAKE_CXX_STANDARD 20)
+   set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+   # Add NiForge subdirectory
+   add_subdirectory(third_party/NiForge)
+
+   add_executable(MyProject src/main.cpp)
+   target_link_libraries(MyProject PRIVATE NiForge)
+
+   # Copy DLL on Windows post-build
+   if(WIN32)
+       add_custom_command(TARGET MyProject POST_BUILD
+           COMMAND ${CMAKE_COMMAND} -E copy_if_different
+           $<TARGET_FILE:NiForge>
+           $<TARGET_FILE_DIR:MyProject>
+       )
+   endif()
+   ```
+
+---
+
+### Option 3: Pre-built Binaries (Imported Target)
+
+If you have already built `NiForge.dll` and `NiForge.lib` and wish to link against them without compiling NiForge from source:
+
+```cmake
+cmake_minimum_required(VERSION 3.20)
+project(MyProject)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Define an imported shared library target
+add_library(NiForge SHARED IMPORTED)
+
+set_target_properties(NiForge PROPERTIES
+    IMPORTED_IMPLIB "${CMAKE_CURRENT_SOURCE_DIR}/lib/NiForge.lib"
+    IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/bin/NiForge.dll"
+    INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include/NiForge"
+)
+
+add_executable(MyProject src/main.cpp)
+target_link_libraries(MyProject PRIVATE NiForge)
+
+# Copy NiForge.dll to the output directory
+if(WIN32)
+    add_custom_command(TARGET MyProject POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:NiForge>
+        $<TARGET_FILE_DIR:MyProject>
+    )
+endif()
+```
+
+---
+## Usage Example
+```cpp
+#include <Core/NiFile.hpp>
+#include <Blocks/NiMesh.hpp>
+#include <Blocks/NiNode.hpp>
+#include <iostream>
+
+int main() {
+    try {
+        // Load a NIF file from disk
+        NiFile file("path/to/model.nif");
+
+        std::cout << "Loaded NIF file successfully!\n";
+        std::cout << "Total blocks: " << file.blocks.size() << "\n";
+
+        // Query all root nodes in the hierarchy
+        auto roots = file.getRootNodes();
+        std::cout << "Root node count: " << roots.size() << "\n";
+
+        // Query specific blocks by type
+        auto meshes = file.getBlocksOfType<NiMesh>();
+        for (NiMesh* mesh : meshes) {
+            std::cout << "Found Mesh: " << mesh->name << "\n";
+        }
+
+    } catch (const std::exception& e) {
+        std::cerr << "Failed to parse NIF file: " << e.what() << "\n";
+        return 1;
+    }
+
+    return 0;
+}
+```
 
 ---
 
