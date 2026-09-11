@@ -2,7 +2,6 @@
 #include "Defines.hpp"
 #include "Types/Color3.hpp"
 #include "Types/Color4.hpp"
-#include "Types/ByteColor4.hpp"
 #include "Types/MatchGroup.hpp"
 #include "Types/Matrix.hpp"
 #include "Types/MipMap.hpp"
@@ -30,7 +29,6 @@ struct NIFORGE_API Reader
 	std::string readString(size_t length);
 	std::string readString();
 	std::string readUntilNull();
-	ByteColor4 readBGRA();
 
 	void seek(size_t newPos) { pos = newPos; }
 	size_t tell() const noexcept { return pos; }

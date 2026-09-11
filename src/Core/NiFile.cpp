@@ -81,7 +81,6 @@ std::string getReadableText(const std::string& input) {
 
 static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObject>(Reader&, NiHeader&)>> factories = {
             {"NiNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiNode>(r, h); }},
-            {"NiSortAdjustNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiSortAdjustNode>(r, h); }},
             {"NiZBufferProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiZBufferProperty>(r, h); }},
             {"NiVertexColorProperty", [](Reader& r, NiHeader& h) { return std::make_shared<NiVertexColorProperty>(r, h); }},
             {"NiMesh", [](Reader& r, NiHeader& h) { return std::make_shared<NiMesh>(r, h); }},
@@ -98,6 +97,7 @@ static const std::unordered_map<std::string, std::function<std::shared_ptr<NiObj
             {"NiFloatData", [](Reader& r, NiHeader& h) { return std::make_shared<NiFloatData>(r, h); }},
             {"NiMorphWeightsController", [](Reader& r, NiHeader& h) { return std::make_shared<NiMorphWeightsController>(r, h); }},
             {"NiBillboardNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiBillboardNode>(r, h); }},
+            {"NiSortAdjustNode", [](Reader& r, NiHeader& h) { return std::make_shared<NiSortAdjustNode>(r, h); }},
             {"NiBooleanExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiBooleanExtraData>(r, h); }},
             {"NiIntegerExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiIntegerExtraData>(r, h); }},
             {"NiIntegersExtraData", [](Reader& r, NiHeader& h) { return std::make_shared<NiIntegersExtraData>(r, h); }},
@@ -119,13 +119,11 @@ void NiFile::parseBlocks() {
         uint32_t expectedSize = header.blockSize[i];
         size_t startPos = reader.tell();
 
-        //printf("Current index: %u, blockType: %s\n", i, blockType.c_str());
         auto it = factories.find(blockType);
         if (it != factories.end()) {
             try {
                 blocks.push_back(it->second(reader, header));
-            }
-            catch (const std::exception& e) {
+            } catch (const std::exception& e) {
                 printf("FATAL: Block %u (%s) threw: %s (startPos=%zu, curPos=%zu, expSize=%u)\n",
                        i, blockType.c_str(), e.what(), startPos, reader.tell(), expectedSize);
                 throw;
@@ -185,16 +183,18 @@ void NiFile::parseDataStreams() {
                         bool isBgra = false;
                         if (c < dataStream->componentFormats.size()) {
                             isBgra = (dataStream->componentFormats[c] == ComponentFormat::F_NORMUINT8_4_BGRA);
-                        }
-                        else if (!dataStream->componentFormats.empty()) {
+                        } else if (!dataStream->componentFormats.empty()) {
                             isBgra = (dataStream->componentFormats[0] == ComponentFormat::F_NORMUINT8_4_BGRA);
                         }
 
                         while (r.tell() + sizeof(ByteColor4) <= dataStream->numBytes) {
                             if (isBgra) {
-                                addStreamValue<DataStreamColor>(dataStream->semanticData, r.readBGRA());
-                            }
-                            else {
+                                uint8_t b = r.read<uint8_t>();
+                                uint8_t g = r.read<uint8_t>();
+                                uint8_t red = r.read<uint8_t>();
+                                uint8_t a = r.read<uint8_t>();
+                                addStreamValue<DataStreamColor>(dataStream->semanticData, ByteColor4(red, g, b, a));
+                            } else {
                                 addStreamValue<DataStreamColor>(dataStream->semanticData, r.read<ByteColor4>());
                             }
                         }
@@ -216,7 +216,7 @@ void NiFile::parseDataStreams() {
 }
 
 NiFile::NiFile(const std::vector<uint8_t>& data) : reader(data), header(reader) {
-    parseBlocks();
+	parseBlocks();
     parseDataStreams();
 }
 
@@ -233,8 +233,8 @@ NiFile::NiFile(const std::string& filePath) {
     if (!file.read(reinterpret_cast<char*>(buffer.data()), size))
         throw std::runtime_error("Failed to read file: " + filePath);
 
-    reader = Reader(buffer);
-    header = NiHeader(reader);
+	reader = Reader(buffer);
+	header = NiHeader(reader);
 
     parseBlocks();
     parseDataStreams();

@@ -4,7 +4,6 @@
 #include "Data/NiGeometryData.hpp"
 #include "Types/Ref.hpp"
 #include "Types/MaterialData.hpp"
-#include <Reader.hpp>
 
 struct NIFORGE_API NiGeometry : NiAvObject
 {

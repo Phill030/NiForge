@@ -1,5 +1,5 @@
 #pragma once
-#include "Types/ByteColor4.hpp"
+#include "Types/Color4.hpp"
 #include "Reader.hpp"
 #include "NiObject.hpp"
 #include <cstdint>

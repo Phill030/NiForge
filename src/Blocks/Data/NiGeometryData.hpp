@@ -6,7 +6,6 @@
 #include "Blocks/NiObject.hpp"
 #include <cstdint>
 #include <vector>
-#include "Types/Color4.hpp"
 
 enum class NIFORGE_API VectorFlags : uint16_t
 {

@@ -27,7 +27,6 @@ set(HEADER_FILES
 
     "src/Types/Color3.hpp"
     "src/Types/Color4.hpp"
-    "src/Types/ByteColor4.hpp"
     "src/Types/MatchGroup.hpp"
     "src/Types/MaterialData.hpp"
     "src/Types/Matrix.hpp"

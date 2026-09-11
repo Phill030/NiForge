@@ -1,6 +1,6 @@
 #pragma once
 #include "DataStreamData.hpp"
-#include "Types/ByteColor4.hpp"
+#include "Types/Color4.hpp"
 #include <vector>
 
 struct NIFORGE_API DataStreamColor : DataStreamData

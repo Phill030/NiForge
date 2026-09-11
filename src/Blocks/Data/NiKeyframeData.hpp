@@ -44,8 +44,7 @@ struct NIFORGE_API NiKeyframeData : NiObject
 				for (uint32_t i = 0; i < xyzRotations.size(); i++) {
 					xyzRotations[i] = KeyGroup<float>().ConstructFrom(reader);
 				}
-			}
-			else {
+			} else {
 				std::vector<QuatKey<Quaternion>> qKeys;
 				qKeys.reserve(numRotationKeys);
 				for (uint32_t i = 0; i < numRotationKeys; i++) {
@@ -60,7 +59,7 @@ struct NIFORGE_API NiKeyframeData : NiObject
 				quaternionKeys = std::move(qKeys);
 			}
 		}
-
+		
 		translations = KeyGroup<Vector3>().ConstructFrom(reader);
 		scales = KeyGroup<float>().ConstructFrom(reader);
 	}
